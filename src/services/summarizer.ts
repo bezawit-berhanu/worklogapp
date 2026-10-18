@@ -1,4 +1,4 @@
-import { DailyLog, WeeklyReflection, MonthlyReflection } from '../types';
+import type { DailyLog, WeeklyReflection, MonthlyReflection } from '../types';
 
 export interface WeekRange {
   startDate: string; // YYYY-MM-DD (Monday)

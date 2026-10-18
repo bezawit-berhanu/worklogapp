@@ -1,4 +1,4 @@
-import { DailyLog, WeeklyReflection, MonthlyReflection, AppDataBackup } from '../types';
+import type { DailyLog, WeeklyReflection, MonthlyReflection, AppDataBackup } from '../types';
 
 const STORAGE_KEYS = {
   DAILY_LOGS: 'worklog_daily_entries_v1',
