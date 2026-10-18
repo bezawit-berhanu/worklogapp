@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { DailyLog } from '../../types';
+import type { DailyLog } from '../../types';
 import { generateConsistencyGrid } from '../../services/analytics';
-import { Calendar as CalendarIcon, CheckCircle2 } from 'lucide-react';
+import { Calendar as CalendarIcon } from 'lucide-react';
 
 interface HeatmapCalendarProps {
   dailyLogs: DailyLog[];

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DailyLog } from '../../types';
+import type { DailyLog } from '../../types';
 import { generateMonthlyTrends } from '../../services/analytics';
 import { BarChart3 } from 'lucide-react';
 

@@ -117,7 +117,6 @@ export function generateWeeklyOverview(
 export function generateMonthlyOverview(
   dailyLogs: DailyLog[],
   weeklyReflections: WeeklyReflection[],
-  allMonthlyReflections: MonthlyReflection[],
   year: number,
   month: number
 ): {

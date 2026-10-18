@@ -1,5 +1,5 @@
 import React from 'react';
-import { OverallStats } from '../../types';
+import type { OverallStats } from '../../types';
 import {
   Calendar,
   Award,

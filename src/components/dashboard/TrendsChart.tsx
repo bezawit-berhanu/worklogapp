@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DailyLog, DateRangeFilter } from '../../types';
+import type { DailyLog, DateRangeFilter } from '../../types';
 import { generateMonthlyTrends, filterLogsByDateRange } from '../../services/analytics';
 import { TrendingUp, Filter } from 'lucide-react';
 

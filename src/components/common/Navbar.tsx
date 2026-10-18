@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ActivePage, AppDataBackup } from '../../types';
+import type { ActivePage, AppDataBackup } from '../../types';
 import {
   LayoutDashboard,
   Calendar,

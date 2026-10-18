@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReflectionCategory } from '../../types';
+import type { ReflectionCategory } from '../../types';
 import { Briefcase, Award, AlertTriangle, Lightbulb, Sparkles, BookOpen } from 'lucide-react';
 
 interface CategoryBadgeProps {

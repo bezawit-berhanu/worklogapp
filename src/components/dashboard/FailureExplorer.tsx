@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DailyLog } from '../../types';
+import type { DailyLog } from '../../types';
 import {
   extractFailureLearningRecords,
   analyzeRecurringThemes,
@@ -7,7 +7,6 @@ import {
 import {
   AlertTriangle,
   Lightbulb,
-  ArrowUpRight,
   Search,
   Sparkles,
   Info,
