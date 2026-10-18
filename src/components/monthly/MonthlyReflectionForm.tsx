@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MonthlyReflection, DailyLog, WeeklyReflection } from '../../types';
+import type { MonthlyReflection, DailyLog, WeeklyReflection } from '../../types';
 import { generateMonthlyOverview, getMonthName } from '../../services/summarizer';
 import { BulletListEditor } from '../common/BulletListEditor';
 import { CategoryBadge } from '../common/CategoryBadge';
@@ -8,7 +8,6 @@ import {
   Save,
   X,
   Info,
-  CalendarRange,
 } from 'lucide-react';
 
 interface MonthlyReflectionFormProps {
@@ -23,15 +22,13 @@ interface MonthlyReflectionFormProps {
 export const MonthlyReflectionForm: React.FC<MonthlyReflectionFormProps> = ({
   dailyLogs,
   weeklyReflections,
-  existingMonthlyReflections,
   initialReflection,
   onSave,
   onCancel,
 }) => {
-  const now = new Date();
-  const [id] = useState(initialReflection?.id || `monthly-${Date.now()}`);
-  const [year, setYear] = useState(initialReflection?.year || now.getFullYear());
-  const [month, setMonth] = useState(initialReflection?.month || now.getMonth() + 1);
+  const [id] = useState(() => initialReflection?.id || `monthly-${Date.now()}`);
+  const [year, setYear] = useState(() => initialReflection?.year || new Date().getFullYear());
+  const [month, setMonth] = useState(() => initialReflection?.month || new Date().getMonth() + 1);
 
   const [workDone, setWorkDone] = useState<string[]>(initialReflection?.work_done || ['']);
   const [achievements, setAchievements] = useState<string[]>(initialReflection?.achievements || ['']);
@@ -49,7 +46,6 @@ export const MonthlyReflectionForm: React.FC<MonthlyReflectionFormProps> = ({
     const overview = generateMonthlyOverview(
       dailyLogs,
       weeklyReflections,
-      existingMonthlyReflections,
       year,
       month
     );

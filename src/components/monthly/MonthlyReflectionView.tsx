@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MonthlyReflection } from '../../types';
+import type { MonthlyReflection } from '../../types';
 import { getMonthName } from '../../services/summarizer';
 import { ConfirmModal } from '../common/ConfirmModal';
 import {

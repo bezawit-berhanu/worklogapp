@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { CheckCircle2, AlertCircle, Info, X } from 'lucide-react';
 
 export interface ToastMessage {

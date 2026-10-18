@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { DailyLog } from '../../types';
+import { useState } from 'react';
+import type { DailyLog } from '../../types';
 import { storage } from '../../services/storage';
 import { formatDateString } from '../../services/summarizer';
 import { BulletListEditor } from '../common/BulletListEditor';
@@ -22,17 +22,15 @@ interface DailyLogFormProps {
   onSwitchToEdit: (existingLog: DailyLog) => void;
 }
 
-export const DailyLogForm: React.FC<DailyLogFormProps> = ({
+export const DailyLogForm = ({
   initialLog,
   initialDate,
   onSave,
   onCancel,
   onSwitchToEdit,
-}) => {
-  const defaultDate = initialLog?.date || initialDate || formatDateString(new Date());
-
-  const [id] = useState(initialLog?.id || `daily-${Date.now()}`);
-  const [date, setDate] = useState(defaultDate);
+}: DailyLogFormProps) => {
+  const [id] = useState(() => initialLog?.id || `daily-${Date.now()}`);
+  const [date, setDate] = useState(() => initialLog?.date || initialDate || formatDateString(new Date()));
   const [workDone, setWorkDone] = useState<string[]>(initialLog?.work_done || ['']);
   const [achievements, setAchievements] = useState<string[]>(initialLog?.achievements || ['']);
   const [failures, setFailures] = useState<string[]>(initialLog?.failures_and_challenges || ['']);
@@ -41,21 +39,15 @@ export const DailyLogForm: React.FC<DailyLogFormProps> = ({
   const [overallReflection, setOverallReflection] = useState(initialLog?.overall_reflection || '');
 
   const [saveStatus, setSaveStatus] = useState<'saved' | 'draft' | 'unsaved'>('saved');
-  const [duplicateWarning, setDuplicateWarning] = useState<DailyLog | null>(null);
 
-  // Check if chosen date already has an entry
-  useEffect(() => {
-    if (!initialLog || initialLog.date !== date) {
-      const existing = storage.getDailyLogByDate(date);
-      if (existing && existing.id !== id) {
-        setDuplicateWarning(existing);
-      } else {
-        setDuplicateWarning(null);
-      }
-    } else {
-      setDuplicateWarning(null);
-    }
-  }, [date, id, initialLog]);
+  // Derive duplicate warning directly
+  const duplicateWarning =
+    !initialLog || initialLog.date !== date
+      ? (() => {
+          const existing = storage.getDailyLogByDate(date);
+          return existing && existing.id !== id ? existing : null;
+        })()
+      : null;
 
   // Mark unsaved on any change
   const handleFieldChange = () => {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { DailyLog } from '../../types';
-import { CategoryBadge } from '../common/CategoryBadge';
+import type { DailyLog } from '../../types';
 import { ConfirmModal } from '../common/ConfirmModal';
 import {
   Calendar,

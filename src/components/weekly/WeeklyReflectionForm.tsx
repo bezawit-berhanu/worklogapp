@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { WeeklyReflection, DailyLog } from '../../types';
-import { getWeekRange, generateWeeklyOverview, formatDateString } from '../../services/summarizer';
+import type { WeeklyReflection, DailyLog } from '../../types';
+import { getWeekRange, generateWeeklyOverview } from '../../services/summarizer';
 import { BulletListEditor } from '../common/BulletListEditor';
 import { CategoryBadge } from '../common/CategoryBadge';
 import {
-  Calendar,
   Sparkles,
   Save,
   X,
-  Layers,
   Info,
 } from 'lucide-react';
 
@@ -25,11 +23,13 @@ export const WeeklyReflectionForm: React.FC<WeeklyReflectionFormProps> = ({
   onSave,
   onCancel,
 }) => {
-  const currentWeek = getWeekRange(new Date());
-
-  const [id] = useState(initialReflection?.id || `weekly-${Date.now()}`);
-  const [startDate, setStartDate] = useState(initialReflection?.week_start_date || currentWeek.startDate);
-  const [endDate, setEndDate] = useState(initialReflection?.week_end_date || currentWeek.endDate);
+  const [id] = useState(() => initialReflection?.id || `weekly-${Date.now()}`);
+  const [startDate, setStartDate] = useState(
+    () => initialReflection?.week_start_date || getWeekRange(new Date()).startDate
+  );
+  const [endDate, setEndDate] = useState(
+    () => initialReflection?.week_end_date || getWeekRange(new Date()).endDate
+  );
 
   const [workDone, setWorkDone] = useState<string[]>(initialReflection?.work_done || ['']);
   const [achievements, setAchievements] = useState<string[]>(initialReflection?.achievements || ['']);

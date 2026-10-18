@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { ActivePage, DailyLog, WeeklyReflection, MonthlyReflection } from './types';
+import { useState, useCallback } from 'react';
+import type { ActivePage, DailyLog, WeeklyReflection, MonthlyReflection } from './types';
 import { storage } from './services/storage';
 import { calculateOverallStats } from './services/analytics';
 import { formatDateString } from './services/summarizer';
 import { Navbar } from './components/common/Navbar';
-import { Toast, ToastMessage } from './components/common/Toast';
+import { Toast, type ToastMessage } from './components/common/Toast';
 
 // Dashboard Components
 import { MetricCards } from './components/dashboard/MetricCards';
@@ -36,9 +36,9 @@ export function App() {
   const [activePage, setActivePage] = useState<ActivePage>('dashboard');
 
   // Core Data State
-  const [dailyLogs, setDailyLogs] = useState<DailyLog[]>([]);
-  const [weeklyReflections, setWeeklyReflections] = useState<WeeklyReflection[]>([]);
-  const [monthlyReflections, setMonthlyReflections] = useState<MonthlyReflection[]>([]);
+  const [dailyLogs, setDailyLogs] = useState<DailyLog[]>(() => storage.getDailyLogs());
+  const [weeklyReflections, setWeeklyReflections] = useState<WeeklyReflection[]>(() => storage.getWeeklyReflections());
+  const [monthlyReflections, setMonthlyReflections] = useState<MonthlyReflection[]>(() => storage.getMonthlyReflections());
 
   // Active item viewing / editing state
   const [editingDailyLog, setEditingDailyLog] = useState<{ log?: DailyLog | null; date?: string } | null>(null);
@@ -74,10 +74,6 @@ export function App() {
     setWeeklyReflections(wRefs);
     setMonthlyReflections(mRefs);
   }, []);
-
-  useEffect(() => {
-    reloadData();
-  }, [reloadData]);
 
   // Overall statistics derived strictly from real saved data
   const overallStats = calculateOverallStats(dailyLogs, weeklyReflections, monthlyReflections);

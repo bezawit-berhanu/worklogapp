@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import { DailyLog, WeeklyReflection, MonthlyReflection } from '../../types';
+import type { DailyLog, WeeklyReflection, MonthlyReflection } from '../../types';
 import { getMonthName } from '../../services/summarizer';
 import {
   Search,
-  Filter,
   Calendar,
   Layers,
   CalendarRange,
   Award,
   AlertTriangle,
   Lightbulb,
-  Sparkles,
   ExternalLink,
   RotateCcw,
 } from 'lucide-react';

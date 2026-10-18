@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { WeeklyReflection } from '../../types';
+import type { WeeklyReflection } from '../../types';
 import { ConfirmModal } from '../common/ConfirmModal';
 import {
   Calendar,

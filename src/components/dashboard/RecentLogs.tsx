@@ -1,7 +1,7 @@
 import React from 'react';
-import { DailyLog, WeeklyReflection, MonthlyReflection } from '../../types';
+import type { DailyLog, WeeklyReflection, MonthlyReflection } from '../../types';
 import { getMonthName } from '../../services/summarizer';
-import { Calendar, Layers, CalendarRange, ArrowRight, Award, AlertTriangle, Sparkles } from 'lucide-react';
+import { Calendar, Layers, ArrowRight, Award, AlertTriangle } from 'lucide-react';
 
 interface RecentLogsProps {
   dailyLogs: DailyLog[];

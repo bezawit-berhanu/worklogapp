@@ -217,7 +217,7 @@ export function analyzeRecurringThemes(failures: string[]): RecurringChallengeTh
 
   // Convert to sorted list of themes with count >= 2 or top results
   const themes = Object.entries(wordFrequency)
-    .filter(([_, data]) => data.count >= 1)
+    .filter(([, data]) => data.count >= 1)
     .sort((a, b) => b[1].count - a[1].count)
     .slice(0, 6)
     .map(([word, data]) => ({

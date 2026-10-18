@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DailyLog } from '../../types';
+import type { DailyLog } from '../../types';
 import { formatDateString } from '../../services/summarizer';
 import {
   Calendar,
@@ -10,7 +10,6 @@ import {
   Lightbulb,
   Sparkles,
   ChevronRight,
-  Filter,
 } from 'lucide-react';
 import { EmptyState } from '../common/EmptyState';
 
@@ -26,7 +25,7 @@ export const DailyLogList: React.FC<DailyLogListProps> = ({
   onNewLogForDate,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDate, setSelectedDate] = useState(formatDateString(new Date()));
+  const [selectedDate, setSelectedDate] = useState(() => formatDateString(new Date()));
 
   // Map existing logs by date for fast lookup
   const dateLogMap = new Map<string, DailyLog>();

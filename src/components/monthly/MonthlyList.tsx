@@ -1,7 +1,7 @@
 import React from 'react';
-import { MonthlyReflection } from '../../types';
+import type { MonthlyReflection } from '../../types';
 import { getMonthName } from '../../services/summarizer';
-import { CalendarRange, Plus, Award, AlertTriangle, Lightbulb, Sparkles, ChevronRight } from 'lucide-react';
+import { CalendarRange, Plus, Award, AlertTriangle, Sparkles, ChevronRight } from 'lucide-react';
 import { EmptyState } from '../common/EmptyState';
 
 interface MonthlyListProps {

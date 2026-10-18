@@ -1,6 +1,6 @@
 import React from 'react';
-import { WeeklyReflection } from '../../types';
-import { Layers, Plus, Calendar, Award, AlertTriangle, Lightbulb, Sparkles, ChevronRight } from 'lucide-react';
+import type { WeeklyReflection } from '../../types';
+import { Layers, Plus, Calendar, Award, AlertTriangle, Lightbulb, ChevronRight } from 'lucide-react';
 import { EmptyState } from '../common/EmptyState';
 
 interface WeeklyListProps {
