@@ -88,7 +88,7 @@ export const MonthlyReflectionForm: React.FC<MonthlyReflectionFormProps> = ({
     onSave(reflection);
   };
 
-  const yearsList = [now.getFullYear() - 1, now.getFullYear(), now.getFullYear() + 1];
+  const yearsList = [year - 1, year, year + 1];
   const monthsList = Array.from({ length: 12 }, (_, i) => i + 1);
 
   return (
