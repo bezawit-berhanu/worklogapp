@@ -470,3 +470,191 @@ export function calculateWeeklyScore(dailyLogs: DailyLog[], refDate: Date = new 
   };
 }
 
+/**
+ * Intelligent Focus Area Advisor
+ * Detects recurrent struggle patterns or gaps in learning/work and advises
+ * the user on what to work on highly (e.g., coursework, testing, focus, documentation).
+ */
+export function calculateFocusRecommendations(dailyLogs: DailyLog[]): FocusRecommendation[] {
+  const recommendations: FocusRecommendation[] = [];
+
+  // Flatten all recorded challenges and work done
+  const allFailures = dailyLogs.flatMap((l) => l.failures_and_challenges || []);
+  const allWork = dailyLogs.flatMap((l) => l.work_done || []);
+  const combinedText = [...allFailures, ...allWork].join(' ').toLowerCase();
+
+  // Pattern 1: Courses & Academic Studies
+  const courseKeywords = ['course', 'class', 'lecture', 'study', 'exam', 'assignment', 'homework', 'tutorial', 'curriculum', 'module'];
+  const courseMentions = courseKeywords.reduce((acc, kw) => acc + (combinedText.split(kw).length - 1), 0);
+  const courseFailureCount = allFailures.filter((f) => courseKeywords.some((kw) => f.toLowerCase().includes(kw))).length;
+
+  if (courseFailureCount > 0 || courseMentions > 0) {
+    recommendations.push({
+      id: 'focus-courses',
+      category: 'Coursework & Learning',
+      title: 'Course Progression & Dedicated Study',
+      message: 'You need to work more on taking your courses properly: ensure you attend lectures attentively, take structured study notes, and finish problem sets before starting other tasks.',
+      severity: courseFailureCount > 1 ? 'high' : 'medium',
+      actionPrompt: 'Schedule fixed 90-minute study blocks each morning dedicated solely to your curriculum courses.',
+      relatedCount: courseFailureCount || 1,
+      keywords: courseKeywords,
+    });
+  } else {
+    // Proactive baseline recommendation
+    recommendations.push({
+      id: 'focus-courses-baseline',
+      category: 'Coursework & Learning',
+      title: 'Coursework Discipline',
+      message: 'You need to work more on taking your courses properly and tracking your academic progress alongside project work.',
+      severity: 'medium',
+      actionPrompt: 'Log your daily coursework modules and lecture milestones in your daily entries.',
+      relatedCount: 0,
+      keywords: courseKeywords,
+    });
+  }
+
+  // Pattern 2: Code Quality, Testing & Debugging
+  const bugKeywords = ['bug', 'debug', 'error', 'broken', 'crash', 'test', 'fail', 'syntax', 'type', 'compiler'];
+  const bugFailures = allFailures.filter((f) => bugKeywords.some((kw) => f.toLowerCase().includes(kw)));
+
+  if (bugFailures.length > 0) {
+    recommendations.push({
+      id: 'focus-testing',
+      category: 'Engineering & Code Quality',
+      title: 'Testing & Systematic Debugging',
+      message: 'You need to work more on writing unit tests and testing edge cases early: recurring debugging bottlenecks suggest logic should be verified with small, isolated tests.',
+      severity: bugFailures.length >= 2 ? 'high' : 'medium',
+      actionPrompt: 'Write a unit test before refactoring and use step-by-step debug traces to isolate issues quickly.',
+      relatedCount: bugFailures.length,
+      keywords: bugKeywords,
+    });
+  }
+
+  // Pattern 3: Time Management & Deep Focus
+  const focusKeywords = ['distract', 'delay', 'procrastinat', 'tired', 'time', 'interrupt', 'late', 'drift'];
+  const focusFailures = allFailures.filter((f) => focusKeywords.some((kw) => f.toLowerCase().includes(kw)));
+
+  if (focusFailures.length > 0) {
+    recommendations.push({
+      id: 'focus-deep-work',
+      category: 'Focus & Productivity',
+      title: 'Deep Work & Distraction Elimination',
+      message: 'You need to work more on protecting deep-work hours: reduce context switching and guard your peak energy hours against non-essential browsing.',
+      severity: 'high',
+      actionPrompt: 'Adopt 60-to-90-minute uninterrupted deep-work sprints without checking notifications.',
+      relatedCount: focusFailures.length,
+      keywords: focusKeywords,
+    });
+  }
+
+  // Pattern 4: Documentation & Knowledge Retention
+  const docKeywords = ['document', 'note', 'complex', 'confus', 'forgot', 'readme', 'architecture'];
+  const docFailures = allFailures.filter((f) => docKeywords.some((kw) => f.toLowerCase().includes(kw)));
+
+  if (docFailures.length > 0) {
+    recommendations.push({
+      id: 'focus-docs',
+      category: 'Documentation & Clarity',
+      title: 'System Architecture & Documentation',
+      message: 'You need to work more on documenting your design decisions and taking clear conceptual notes as you learn complex topics.',
+      severity: 'medium',
+      actionPrompt: 'Write a brief 5-minute summary or README diagram before implementing complex subsystems.',
+      relatedCount: docFailures.length,
+      keywords: docKeywords,
+    });
+  }
+
+  // Pattern 5: Daily Logging Discipline (if days are low)
+  if (dailyLogs.length < 5) {
+    recommendations.push({
+      id: 'focus-consistency',
+      category: 'Reflective Habit',
+      title: 'Daily Work Log Consistency',
+      message: 'You need to work more on logging daily work continuously: capturing what you worked on, achieved, and learned every day reveals powerful growth trends.',
+      severity: 'info',
+      actionPrompt: 'Take 5 minutes before ending your day to complete your 4 reflection categories.',
+      relatedCount: dailyLogs.length,
+      keywords: ['daily', 'log', 'streak'],
+    });
+  }
+
+  return recommendations;
+}
+
+/**
+ * Intelligent Achievement Evaluator
+ * Evaluates the user's logged achievements, milestones, and high points
+ * and delivers constructive, personalized praise ("You did well on...").
+ */
+export function evaluateAchievements(dailyLogs: DailyLog[]): AchievementJudgment[] {
+  const judgments: AchievementJudgment[] = [];
+  const allAchievements = dailyLogs.flatMap((l) => (l.achievements || []).map((a) => ({ text: a, date: l.date })));
+  const allHighlights = dailyLogs.flatMap((l) => (l.highlights || []).map((h) => ({ text: h, date: l.date })));
+  const allLessons = dailyLogs.flatMap((l) => l.lessons_learned || []);
+
+  if (allAchievements.length === 0) {
+    return [
+      {
+        id: 'eval-first-step',
+        title: 'Ready for Breakthroughs',
+        praise: 'You did well on initiating your personal growth journey. Log your first achievements to receive qualitative evaluations.',
+        impact: 'growing',
+        evidence: ['Started personal work log profile'],
+      },
+    ];
+  }
+
+  // Sort achievements newest first
+  const sortedAchievements = [...allAchievements].reverse();
+  const topAchievements = sortedAchievements.slice(0, 3);
+
+  // Judgment 1: Top Specific Accomplishments
+  if (topAchievements.length > 0) {
+    const mainItem = topAchievements[0].text;
+    judgments.push({
+      id: 'eval-recent-feat',
+      title: 'Key Technical & Practical Accomplishment',
+      praise: `You did well on ${mainItem.toLowerCase().startsWith('implemented') || mainItem.toLowerCase().startsWith('completed') || mainItem.toLowerCase().startsWith('built') ? mainItem : `${mainItem}`} — this demonstrates tangible, forward momentum.`,
+      impact: 'outstanding',
+      evidence: topAchievements.map((a) => a.text),
+    });
+  }
+
+  // Judgment 2: Secondary Wins / Highlights
+  if (topAchievements.length > 1) {
+    const secondItem = topAchievements[1].text;
+    judgments.push({
+      id: 'eval-secondary-feat',
+      title: 'Milestone Execution',
+      praise: `You did well on ${secondItem}: staying focused and pushing through implementation details made this a notable success.`,
+      impact: 'solid',
+      evidence: [secondItem],
+    });
+  }
+
+  // Judgment 3: Resilience & Learning Conversion
+  if (allLessons.length > 0) {
+    judgments.push({
+      id: 'eval-resilience',
+      title: 'Growth Mindset & Problem Solving',
+      praise: `You did well on transforming ${allLessons.length} obstacles into concrete lessons learned. Turning friction into knowledge is the hallmark of professional growth.`,
+      impact: 'outstanding',
+      evidence: allLessons.slice(0, 3),
+    });
+  }
+
+  // Judgment 4: Highlights appraisal
+  if (allHighlights.length > 0) {
+    judgments.push({
+      id: 'eval-highlights',
+      title: 'Breakthrough Moments',
+      praise: `You did well on recognizing your high points: ${allHighlights[0].text}. Celebrating these wins reinforces motivation.`,
+      impact: 'solid',
+      evidence: allHighlights.slice(0, 2).map((h) => h.text),
+    });
+  }
+
+  return judgments;
+}
+
+
