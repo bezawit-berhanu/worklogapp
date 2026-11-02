@@ -352,3 +352,121 @@ export function generateMonthlyTrends(dailyLogs: DailyLog[], monthsCount = 6): T
 
   return result;
 }
+
+/**
+ * Helper to get Monday-Sunday boundaries for any date
+ */
+export function getMondaySundayBoundaries(date: Date = new Date()): { weekStart: string; weekEnd: string } {
+  const d = new Date(date);
+  const day = d.getDay();
+  // Adjust when day is Sunday (0), which should be day 7 of previous ISO week
+  const diffToMonday = day === 0 ? -6 : 1 - day;
+  const monday = new Date(d);
+  monday.setDate(d.getDate() + diffToMonday);
+
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+
+  return {
+    weekStart: formatDateString(monday),
+    weekEnd: formatDateString(sunday),
+  };
+}
+
+/**
+ * Calculate weekly score (0-100%) and compare with previous week's performance
+ */
+export function calculateWeeklyScore(dailyLogs: DailyLog[], refDate: Date = new Date()): WeeklyScore {
+  const { weekStart, weekEnd } = getMondaySundayBoundaries(refDate);
+
+  // Compute previous week boundaries
+  const prevRefDate = new Date(refDate);
+  prevRefDate.setDate(prevRefDate.getDate() - 7);
+  const prevWeek = getMondaySundayBoundaries(prevRefDate);
+
+  const getWeekStats = (start: string, end: string) => {
+    const weekLogs = dailyLogs.filter((l) => l.date >= start && l.date <= end);
+    let totalTasks = 0;
+    let achievementsCount = 0;
+    let failuresCount = 0;
+    let lessonsCount = 0;
+
+    weekLogs.forEach((l) => {
+      totalTasks += l.work_done?.length || 0;
+      achievementsCount += l.achievements?.length || 0;
+      failuresCount += l.failures_and_challenges?.length || 0;
+      lessonsCount += l.lessons_learned?.length || 0;
+    });
+
+    const loggedDaysCount = weekLogs.length;
+
+    // Calculation algorithm (0 - 100):
+    // 1. Consistency: up to 35 points (5 days = 35 pts)
+    // 2. Output volume: up to 25 points (tasks count)
+    // 3. Achievement ratio: up to 25 points
+    // 4. Resilience / lessons: up to 15 points
+    if (loggedDaysCount === 0 && totalTasks === 0) {
+      return { score: 0, loggedDaysCount, totalTasks, achievementsCount, failuresCount, lessonsCount };
+    }
+
+    const consistencyScore = Math.min(35, (loggedDaysCount / 5) * 35);
+    const volumeScore = Math.min(25, totalTasks * 3.5);
+
+    let ratioScore = 0;
+    if (achievementsCount + failuresCount > 0) {
+      const positiveRatio = achievementsCount / (achievementsCount + failuresCount * 0.6);
+      ratioScore = Math.min(25, positiveRatio * 25);
+    } else if (totalTasks > 0) {
+      ratioScore = 18;
+    }
+
+    let resilienceScore = 0;
+    if (failuresCount > 0) {
+      const learningRatio = Math.min(1, lessonsCount / failuresCount);
+      resilienceScore = Math.min(15, learningRatio * 15);
+    } else if (achievementsCount > 0) {
+      resilienceScore = 15;
+    }
+
+    const calculated = Math.min(100, Math.max(0, Math.round(consistencyScore + volumeScore + ratioScore + resilienceScore)));
+    return { score: calculated, loggedDaysCount, totalTasks, achievementsCount, failuresCount, lessonsCount };
+  };
+
+  const currentStats = getWeekStats(weekStart, weekEnd);
+  const prevStats = getWeekStats(prevWeek.weekStart, prevWeek.weekEnd);
+
+  let trend: 'improved' | 'decreased' | 'unchanged' | 'baseline' = 'unchanged';
+  let diff = 0;
+
+  if (prevStats.score === 0 && currentStats.score === 0) {
+    trend = 'baseline';
+    diff = 0;
+  } else if (prevStats.score === 0 && currentStats.score > 0) {
+    trend = 'improved';
+    diff = currentStats.score;
+  } else {
+    diff = Math.abs(currentStats.score - prevStats.score);
+    if (currentStats.score > prevStats.score) {
+      trend = 'improved';
+    } else if (currentStats.score < prevStats.score) {
+      trend = 'decreased';
+    } else {
+      trend = 'unchanged';
+    }
+  }
+
+  return {
+    score: currentStats.score,
+    previousScore: prevStats.score,
+    diff,
+    trend,
+    weekStart,
+    weekEnd,
+    loggedDaysCount: currentStats.loggedDaysCount,
+    totalTasks: currentStats.totalTasks,
+    achievementsCount: currentStats.achievementsCount,
+    failuresCount: currentStats.failuresCount,
+    lessonsCount: currentStats.lessonsCount,
+  };
+}
+
