@@ -657,4 +657,117 @@ export function evaluateAchievements(dailyLogs: DailyLog[]): AchievementJudgment
   return judgments;
 }
 
+/**
+ * Generate 7-day Monday-to-Sunday bar chart data with explicit height and color rating:
+ * - Height: 'long' (>= 4 tasks/items), 'medium' (2-3 items), 'short' (1 item), 'empty' (0 items)
+ * - Color:
+ *    * 'green': performed well (achievements outpace failures, high win ratio)
+ *    * 'yellow': performed averagely (balanced mix, routine work)
+ *    * 'red': most of it is a failure (failures dominate achievements)
+ *    * 'gray': no items recorded for this day
+ */
+export function calculateWeeklyDayBars(dailyLogs: DailyLog[], refDate: Date = new Date()): DayBarData[] {
+  const { weekStart } = getMondaySundayBoundaries(refDate);
+  const mondayDate = parseDateString(weekStart);
+
+  const dayNames: Array<'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun'> = [
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+    'Sun',
+  ];
+
+  const todayStr = formatDateString(new Date());
+
+  const bars: DayBarData[] = [];
+
+  for (let i = 0; i < 7; i++) {
+    const currentDay = new Date(mondayDate);
+    currentDay.setDate(mondayDate.getDate() + i);
+    const dateStr = formatDateString(currentDay);
+
+    const log = dailyLogs.find((l) => l.date === dateStr);
+    const workItems = log?.work_done || [];
+    const achievementItems = log?.achievements || [];
+    const failureItems = log?.failures_and_challenges || [];
+    const lessonItems = log?.lessons_learned || [];
+
+    const taskCount = workItems.length;
+    const achievementsCount = achievementItems.length;
+    const failuresCount = failureItems.length;
+    const lessonsCount = lessonItems.length;
+    const totalVolume = taskCount + achievementsCount + failuresCount;
+
+    // Determine Height Level
+    let heightLevel: 'long' | 'medium' | 'short' | 'empty' = 'empty';
+    if (totalVolume >= 4) {
+      heightLevel = 'long';
+    } else if (totalVolume >= 2) {
+      heightLevel = 'medium';
+    } else if (totalVolume === 1) {
+      heightLevel = 'short';
+    }
+
+    // Determine Color Rating
+    let colorRating: 'green' | 'yellow' | 'red' | 'gray' = 'gray';
+    let evaluationLabel = 'No activity logged';
+
+    if (totalVolume > 0) {
+      if (failuresCount > achievementsCount && failuresCount >= 1) {
+        colorRating = 'red';
+        evaluationLabel =
+          heightLevel === 'long'
+            ? 'Long • Red (High Volume, High Failure Rate)'
+            : heightLevel === 'medium'
+            ? 'Medium • Red (Challenging Day with High Blockers)'
+            : 'Short • Red (Light Activity with Dominant Blocker)';
+      } else if (achievementsCount > failuresCount || (achievementsCount > 0 && failuresCount === 0)) {
+        colorRating = 'green';
+        evaluationLabel =
+          heightLevel === 'long'
+            ? 'Long • Green (High Output & Performed Well)'
+            : heightLevel === 'medium'
+            ? 'Medium • Green (Steady Output & Strong Wins)'
+            : 'Short • Green (Focused Task & Win Achieved)';
+      } else {
+        // Balanced achievements and failures or neutral tasks
+        colorRating = 'yellow';
+        evaluationLabel =
+          heightLevel === 'long'
+            ? 'Long • Yellow (High Volume & Average Performance)'
+            : heightLevel === 'medium'
+            ? 'Medium • Yellow (Average Performance & Balanced Outcomes)'
+            : 'Short • Yellow (Light Routine Progress)';
+      }
+    }
+
+    bars.push({
+      dayIndex: i,
+      dayName: dayNames[i],
+      date: dateStr,
+      isToday: dateStr === todayStr,
+      hasLog: Boolean(log),
+      taskCount,
+      achievementsCount,
+      failuresCount,
+      lessonsCount,
+      heightLevel,
+      colorRating,
+      evaluationLabel,
+      items: {
+        work: workItems,
+        achievements: achievementItems,
+        failures: failureItems,
+        lessons: lessonItems,
+      },
+    });
+  }
+
+  return bars;
+}
+
+
 
