@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+# Environment variables (TiDB credentials and secrets)
+.env
+.env.production
+.env.development
+.env.local
+.env.*.local
+
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
