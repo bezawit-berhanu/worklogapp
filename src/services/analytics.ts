@@ -7,6 +7,10 @@ import type {
   RecurringChallengeTheme,
   ConsistencyDay,
   DateRangeFilter,
+  WeeklyScore,
+  FocusRecommendation,
+  AchievementJudgment,
+  DayBarData,
 } from '../types';
 import { parseDateString, formatDateString } from './summarizer';
 
