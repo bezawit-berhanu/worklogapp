@@ -103,3 +103,61 @@ export interface DateRangeFilter {
 }
 
 export type ActivePage = 'dashboard' | 'daily' | 'weekly' | 'monthly' | 'search';
+
+export interface WeeklyScore {
+  score: number; // 0 - 100 percentage
+  previousScore: number;
+  diff: number; // absolute percentage points difference
+  trend: 'improved' | 'decreased' | 'unchanged' | 'baseline';
+  weekStart: string;
+  weekEnd: string;
+  loggedDaysCount: number;
+  totalTasks: number;
+  achievementsCount: number;
+  failuresCount: number;
+  lessonsCount: number;
+}
+
+export interface FocusRecommendation {
+  id: string;
+  category: string;
+  title: string;
+  message: string;
+  severity: 'high' | 'medium' | 'info';
+  actionPrompt: string;
+  relatedCount: number;
+  keywords: string[];
+}
+
+export interface AchievementJudgment {
+  id: string;
+  title: string;
+  praise: string;
+  impact: 'outstanding' | 'solid' | 'growing';
+  evidence: string[];
+}
+
+export type BarHeightLevel = 'long' | 'medium' | 'short' | 'empty';
+export type BarColorRating = 'green' | 'yellow' | 'red' | 'gray';
+
+export interface DayBarData {
+  dayIndex: number; // 0 = Mon, ..., 6 = Sun
+  dayName: 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun';
+  date: string;
+  isToday: boolean;
+  hasLog: boolean;
+  taskCount: number;
+  achievementsCount: number;
+  failuresCount: number;
+  lessonsCount: number;
+  heightLevel: BarHeightLevel;
+  colorRating: BarColorRating;
+  evaluationLabel: string;
+  items: {
+    work: string[];
+    achievements: string[];
+    failures: string[];
+    lessons: string[];
+  };
+}
+
