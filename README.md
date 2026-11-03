@@ -103,3 +103,15 @@ DATABASE_URL=mysql://your_tidb_username:your_tidb_password@gateway01.us-east-1.p
 - `npm run db:init` — Runs automated DDL to create `daily_logs`, `weekly_reflections`, and `monthly_reflections` tables on TiDB.
 - `npm run db:seed` — Populates sample demonstration records into TiDB.
 - `npm run db:push` — Pushes Drizzle schema migrations to TiDB.
+
+---
+
+## 🏆 Score of the Week & Week-over-Week Trend Delta
+
+Displayed prominently on the **top right corner** (in the navigation bar and on the dashboard header):
+
+- **Weekly Score Percentage (0–100%):** Evaluates consistent logging (35 pts), output task volume (25 pts), positive achievement ratio (25 pts), and lesson resilience (15 pts).
+- **Trend Comparison:** Compares current week performance against the previous week:
+  - **`+X% improved`** with green arrow indicator when performance outpaces last week.
+  - **`-X% decreased`** with amber/red downward indicator when volume or consistency drops.
+  - **`Baseline week`** for inaugural logging periods.
