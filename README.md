@@ -78,3 +78,28 @@ Every entry in the system revolves around four essential pillars:
 - **Icons:** Lucide React
 - **Persistence:** Local-first storage with full JSON Backup / Restore
 - **Linter & Type Checker:** TypeScript strict mode + Oxlint (0 warnings, 0 errors)
+
+
+---
+
+## 🗄️ Database & TiDB Cloud ORM Integration
+
+The application includes enterprise-grade ORM support powered by **Drizzle ORM** configured for **TiDB Cloud** (MySQL-compatible distributed HTAP database).
+
+### Environment Configuration (`.env`)
+Database credentials are protected via `.gitignore`. To connect your TiDB Cloud cluster, copy `.env.example` to `.env` and fill in your connection details:
+
+```env
+TIDB_HOST=gateway01.us-east-1.prod.aws.tidbcloud.com
+TIDB_PORT=4000
+TIDB_USER=your_tidb_username
+TIDB_PASSWORD=your_tidb_password
+TIDB_DATABASE=worklog
+DATABASE_URL=mysql://your_tidb_username:your_tidb_password@gateway01.us-east-1.prod.aws.tidbcloud.com:4000/worklog?ssl={"rejectUnauthorized":true}
+```
+
+### TiDB CLI Scripts
+- `npm run db:check` — Validates environment credentials and tests active TLSv1.2 connection to TiDB Cloud.
+- `npm run db:init` — Runs automated DDL to create `daily_logs`, `weekly_reflections`, and `monthly_reflections` tables on TiDB.
+- `npm run db:seed` — Populates sample demonstration records into TiDB.
+- `npm run db:push` — Pushes Drizzle schema migrations to TiDB.
