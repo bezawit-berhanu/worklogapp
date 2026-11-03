@@ -117,3 +117,301 @@
   font-size: 0.72rem;
   color: var(--text-tertiary);
 }
+
+/* --------------------------------------------------------------------------
+   Growth Focus Advisor (What to Work on Highly & Achievement Evaluation)
+   -------------------------------------------------------------------------- */
+.growth-advisor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.advisor-card {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.advisor-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.focus-card {
+  border-left: 4px solid #b45309;
+}
+
+.achievement-card {
+  border-left: 4px solid #15803d;
+}
+
+.advisor-header {
+  padding: 1.25rem 1.5rem 0.75rem;
+}
+
+.advisor-title-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.advisor-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.focus-icon {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.achievement-icon {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.advisor-body {
+  padding: 0.75rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.empty-advisor-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--text-tertiary);
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.focus-recommendations-list,
+.achievement-judgments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.focus-rec-item {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.focus-rec-item.severity-high {
+  border-left: 3px solid #dc2626;
+  background-color: #fffaf9;
+}
+
+.focus-rec-item.severity-medium {
+  border-left: 3px solid #d97706;
+  background-color: #fffdfa;
+}
+
+.focus-rec-item.severity-info {
+  border-left: 3px solid #4f46e5;
+  background-color: #fafaff;
+}
+
+.focus-rec-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.focus-category-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.severity-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badge-high {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.badge-medium {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.badge-info {
+  background-color: #e0e7ff;
+  color: #3730a3;
+}
+
+.focus-rec-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.focus-rec-message {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.focus-action-box {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+.focus-action-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+}
+
+.focus-action-text {
+  font-size: 0.825rem;
+  font-weight: 500;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+/* Judgments & Praise */
+.judgment-item {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.judgment-item.impact-outstanding {
+  border-left: 3px solid #16a34a;
+  background: linear-gradient(180deg, #f0fdf4 0%, var(--bg-surface-elevated) 100%);
+}
+
+.judgment-item.impact-solid {
+  border-left: 3px solid #0284c7;
+  background: linear-gradient(180deg, #f0f9ff 0%, var(--bg-surface-elevated) 100%);
+}
+
+.judgment-item.impact-growing {
+  border-left: 3px solid #8b5cf6;
+}
+
+.judgment-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.judgment-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.judgment-check {
+  color: #16a34a;
+}
+
+.judgment-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.impact-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.pill-outstanding {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.pill-solid {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.pill-growing {
+  background-color: #ede9fe;
+  color: #6d28d9;
+}
+
+.judgment-praise {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-main);
+  font-style: italic;
+}
+
+.judgment-evidence {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  border-top: 1px dashed var(--border-light);
+  padding-top: 0.5rem;
+}
+
+.evidence-label {
+  font-weight: 600;
+  color: var(--text-tertiary);
+  display: block;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+.evidence-list {
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.advisor-footer-action {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
