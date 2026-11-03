@@ -52,3 +52,52 @@ test('Performance Benchmark - Streak calculation over 500 entries executes under
   assert.equal(res.longestStreak, 500);
   assert.ok(duration < 15, `Streak calculation took ${duration.toFixed(2)}ms (expected < 15ms)`);
 });
+
+function benchmarkScoreCalculation(logs, start, end) {
+  const weekLogs = logs.filter((l) => l.date >= start && l.date <= end);
+  let totalTasks = 0;
+  let achievementsCount = 0;
+  let failuresCount = 0;
+  let lessonsCount = 0;
+
+  for (const l of weekLogs) {
+    totalTasks += l.work_done?.length || 0;
+    achievementsCount += l.achievements?.length || 0;
+    failuresCount += l.failures_and_challenges?.length || 0;
+    lessonsCount += l.lessons_learned?.length || 0;
+  }
+
+  const daysCount = weekLogs.length;
+  const consistencyScore = Math.min(35, Math.round((daysCount / 5) * 35));
+  const volumeScore = Math.min(30, Math.round((totalTasks / 15) * 30));
+  const winRatio = (achievementsCount + 1) / (achievementsCount + failuresCount + 1);
+  const qualityScore = Math.min(25, Math.round(winRatio * 25));
+  const learningScore =
+    failuresCount > 0 ? Math.min(10, Math.round((lessonsCount / failuresCount) * 10)) : 10;
+
+  return Math.min(100, consistencyScore + volumeScore + qualityScore + learningScore);
+}
+
+test('Performance Benchmark - Weekly score calculation over 1,000 logs executes under 20ms', () => {
+  const logs = [];
+  const base = new Date('2024-01-01');
+  for (let i = 0; i < 1000; i++) {
+    const d = new Date(base);
+    d.setDate(base.getDate() + i);
+    logs.push({
+      id: `log-${i}`,
+      date: d.toISOString().slice(0, 10),
+      work_done: ['Activity 1', 'Activity 2'],
+      achievements: ['Achievement A'],
+      failures_and_challenges: ['Issue X'],
+      lessons_learned: ['Lesson learned Y'],
+    });
+  }
+
+  const start = performance.now();
+  const score = benchmarkScoreCalculation(logs, '2026-01-01', '2026-01-07');
+  const duration = performance.now() - start;
+
+  assert.ok(score >= 0 && score <= 100);
+  assert.ok(duration < 20, `Scoring calculation took ${duration.toFixed(2)}ms (expected < 20ms)`);
+});
