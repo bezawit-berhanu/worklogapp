@@ -20,6 +20,7 @@ import { storage } from '../../services/storage';
 import { getTiDBStatus } from '../../services/dbSync';
 import { UserProfilePill } from '../auth/UserProfilePill';
 import { AuthModal } from '../auth/AuthModal';
+import { ThemeToggle } from './ThemeToggle';
 
 interface NavbarProps {
   activePage: ActivePage;
@@ -169,6 +170,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="nav-actions">
             {weeklyScore && <WeeklyScoreBadge scoreData={weeklyScore} compact />}
             <UserProfilePill onOpenAuthModal={() => setShowAuthModal(true)} />
+            <ThemeToggle />
             <button
               type="button"
               className="btn btn-ghost btn-sm"
