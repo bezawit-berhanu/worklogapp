@@ -155,3 +155,35 @@ Detects recurrent friction points and learning gaps:
 Extracts high points and delivers personalized, objective recognition:
 - E.g., *"You did well on shipping the TiDB ORM integration and maintaining structured data integrity."*
 - Highlights problem-solving perseverance, learning conversions, and multi-day momentum.
+
+
+---
+
+## 🧪 Testing & Verification
+
+The test suite covers algorithmic date math, scoring dynamics, trend comparisons, and TiDB serialization:
+
+```bash
+# Run all unit tests
+npm test
+
+# Run individual test suites
+node --test tests/weekly_score.test.js
+node --test tests/focus_advisor.test.js
+node --test tests/weekly_bars.test.js
+node --test tests/tidb_sync.test.js
+node --test tests/tidb_client.test.js
+node --test tests/summarizer_growth.test.js
+```
+
+### Verified Test Suites (100% Pass)
+- ✔ Monday–Sunday ISO week boundary calculations
+- ✔ Weekly score 0–100% scaling and baseline trend identification
+- ✔ Week-over-week improved (+X%) and decreased (-X%) delta calculations
+- ✔ Coursework failure detection triggering "taking courses properly" guidance
+- ✔ Bug frequency spike triggering unit test and debugging recommendations
+- ✔ Achievement evaluation and positive feedback validation
+- ✔ 7-day Monday–Sunday bar structure and volume hierarchy (Long, Medium, Short, Empty)
+- ✔ Color ratings: Green (high success), Yellow (average), Red (dominant struggle)
+- ✔ TiDB ORM record serialization and formatters
+- ✔ TiDB client exponential backoff, retry, and fallback handling
