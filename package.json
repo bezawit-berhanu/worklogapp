@@ -13,6 +13,7 @@
     "db:check": "node --import tsx/esm scripts/tidb_test_connection.ts",
     "db:init": "node --import tsx/esm scripts/tidb_schema_create.ts",
     "db:seed": "node --import tsx/esm scripts/tidb_seed.ts",
+    "validate": "node scripts/validate_suite.js",
     "preview": "vite preview"
   },
   "dependencies": {
