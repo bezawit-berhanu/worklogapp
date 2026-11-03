@@ -100,7 +100,7 @@ export const DailyLogForm = ({
             )}
           </div>
           <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-            Record what you built, accomplished, encountered, and learned today. Complete in ~5 minutes.
+            Daily progress, accomplishments, challenges, and key learnings.
           </p>
         </div>
 
