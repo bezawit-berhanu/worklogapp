@@ -94,3 +94,47 @@ test('calculateWeeklyDayBars evaluates high output with high achievements as Lon
   assert.equal(monBar.colorRating, 'green'); // high achievements outnumber failures
   assert.equal(monBar.evaluationLabel, 'Performed Well');
 });
+
+test('calculateWeeklyDayBars evaluates high volume with average performance as Long Yellow bar', () => {
+  const logs = [
+    {
+      id: 'log-tue',
+      date: '2026-10-20',
+      work_done: ['Attended 2 workshops', 'Read chapters 1 and 2'],
+      achievements: ['Finished reading'],
+      failures_and_challenges: ['Did not finish exercises'],
+      lessons_learned: ['Need more hands-on practice'],
+    },
+  ];
+
+  const bars = calculateWeeklyDayBars(logs);
+  const tueBar = bars[1];
+  assert.equal(tueBar.dayName, 'Tue');
+  assert.equal(tueBar.heightLevel, 'long'); // 2 work + 1 ach + 1 fail = 4 volume
+  assert.equal(tueBar.colorRating, 'yellow'); // balanced outcome / average performance
+  assert.equal(tueBar.evaluationLabel, 'Average Performance');
+});
+
+test('calculateWeeklyDayBars evaluates high volume with dominant failures as Long Red bar', () => {
+  const logs = [
+    {
+      id: 'log-wed',
+      date: '2026-10-21',
+      work_done: ['Spent 8 hours debugging server cluster'],
+      achievements: [],
+      failures_and_challenges: [
+        'Database connection pool exhausted',
+        'TLS handshake certificates rejected',
+        'CORS policy blocked client requests',
+      ],
+      lessons_learned: ['Review cloud security groups and SSL configs systematically'],
+    },
+  ];
+
+  const bars = calculateWeeklyDayBars(logs);
+  const wedBar = bars[2];
+  assert.equal(wedBar.dayName, 'Wed');
+  assert.equal(wedBar.heightLevel, 'long'); // 1 work + 3 failures = 4 volume
+  assert.equal(wedBar.colorRating, 'red'); // failures dominate achievements
+  assert.equal(wedBar.evaluationLabel, 'High Failure Rate');
+});
