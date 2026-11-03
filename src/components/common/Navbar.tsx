@@ -207,6 +207,40 @@ export const Navbar: React.FC<NavbarProps> = ({
               All your entries are saved permanently in local storage on this browser. You can export a full JSON backup to safeguard your growth history, restore a previous backup, or explore with sample logs.
             </p>
 
+            {/* TiDB Cloud Connection Status Badge */}
+            <div style={{
+              backgroundColor: 'var(--bg-surface-elevated)',
+              border: '1px solid var(--border-light)',
+              borderRadius: 'var(--radius-md)',
+              padding: '0.85rem 1rem',
+              marginBottom: '1rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.4rem',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-tertiary)', letterSpacing: '0.04em' }}>
+                  TiDB Cloud Database
+                </span>
+                <span style={{
+                  fontSize: '0.7rem',
+                  fontWeight: 700,
+                  padding: '0.15rem 0.5rem',
+                  borderRadius: 'var(--radius-full)',
+                  backgroundColor: tidbStatus.isConfigured ? '#dcfce7' : '#fef3c7',
+                  color: tidbStatus.isConfigured ? '#15803d' : '#92400e',
+                  border: tidbStatus.isConfigured ? '1px solid #bbf7d0' : '1px solid #fef08a',
+                }}>
+                  {tidbStatus.isConfigured ? 'Connected (Active)' : 'Credentials Pending (.env)'}
+                </span>
+              </div>
+              <p style={{ margin: 0, fontSize: '0.825rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
+                {tidbStatus.isConfigured
+                  ? `Active connection configured to ${tidbStatus.host} (${tidbStatus.database}).`
+                  : 'Add your TiDB Cloud username and password to .env to activate remote synchronization.'}
+              </p>
+            </div>
+
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
               <button
                 type="button"
