@@ -7,3 +7,10 @@ test('getMondaySundayBoundaries returns 7-day Monday to Sunday range', () => {
   assert.equal(boundaries.weekStart, '2026-10-19'); // Monday
   assert.equal(boundaries.weekEnd, '2026-10-25');   // Sunday
 });
+
+test('calculateWeeklyScore returns 0% score and baseline trend for empty logs', () => {
+  const result = calculateWeeklyScore([], new Date('2026-10-21'));
+  assert.equal(result.score, 0);
+  assert.equal(result.diff, 0);
+  assert.equal(result.trend, 'baseline');
+});
