@@ -136,3 +136,22 @@ The weekly performance visualizer tracks daily output volume and outcome health 
 - **Gray:** No log recorded for that date.
 
 Clicking any bar opens the **Interactive Day Inspector** displaying the exact breakdown of activities, achievements, challenges, and lessons learned.
+
+
+---
+
+## 💡 Growth Focus Advisor & Achievement Evaluator
+
+Designed to answer what to prioritize and celebrate:
+
+### 1. Priority Focus: What to Work on Highly
+Detects recurrent friction points and learning gaps:
+- **Coursework Discipline:** E.g., *"You need to work more on taking your courses properly: review syllabus lectures methodically, avoid skipping tutorial sessions, and schedule designated study focus hours."*
+- **Testing & Debugging Methodology:** Recommends writing automated unit tests and reproducible debug traces when bug bottlenecks spike.
+- **Deep Work Protection:** Advises blocking uninterrupted 90-minute morning focus zones when distraction patterns are logged.
+- **System Documentation:** Suggests architectural diagrams when complexity issues arise.
+
+### 2. Achievement Evaluation: What You Did Well On
+Extracts high points and delivers personalized, objective recognition:
+- E.g., *"You did well on shipping the TiDB ORM integration and maintaining structured data integrity."*
+- Highlights problem-solving perseverance, learning conversions, and multi-day momentum.
