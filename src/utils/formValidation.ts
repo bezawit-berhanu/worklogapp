@@ -79,3 +79,113 @@ export function validateDailyLogInput(payload: DailyLogValidationPayload): Valid
     warnings,
   };
 }
+
+export interface WeeklyReflectionValidationPayload {
+  startDate: string;
+  endDate: string;
+  workDone: string[];
+  achievements: string[];
+  failures: string[];
+  lessons: string[];
+  highlights: string[];
+  overallReflection?: string;
+}
+
+export interface MonthlyReflectionValidationPayload {
+  year: number;
+  month: number;
+  workDone: string[];
+  achievements: string[];
+  failures: string[];
+  lessons: string[];
+  highlights: string[];
+  overallReflection?: string;
+  nextMonthReflection?: string;
+}
+
+export function validateWeeklyReflectionInput(
+  payload: WeeklyReflectionValidationPayload
+): ValidationResult {
+  const errors: Record<string, string> = {};
+  const warnings: string[] = [];
+
+  if (!payload.startDate || !isValidDateFormat(payload.startDate)) {
+    errors.startDate = 'A valid start date in YYYY-MM-DD format is required.';
+  }
+  if (!payload.endDate || !isValidDateFormat(payload.endDate)) {
+    errors.endDate = 'A valid end date in YYYY-MM-DD format is required.';
+  }
+  if (payload.startDate && payload.endDate && payload.startDate > payload.endDate) {
+    errors.dateRange = 'Week start date cannot be after the week end date.';
+  }
+
+  const clean = (arr: string[] = []) =>
+    arr.map((s) => (typeof s === 'string' ? s.trim() : '')).filter(Boolean);
+
+  const cleanWork = clean(payload.workDone);
+  const cleanAchievements = clean(payload.achievements);
+  const cleanFailures = clean(payload.failures);
+  const cleanLessons = clean(payload.lessons);
+  const cleanHighlights = clean(payload.highlights);
+  const cleanReflection = (payload.overallReflection || '').trim();
+
+  const totalContentEntries =
+    cleanWork.length +
+    cleanAchievements.length +
+    cleanFailures.length +
+    cleanLessons.length +
+    cleanHighlights.length;
+
+  if (totalContentEntries === 0 && !cleanReflection) {
+    errors.content =
+      'Weekly reflection must include at least one activity, achievement, lesson, or overall thought.';
+  }
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors,
+    warnings,
+  };
+}
+
+export function validateMonthlyReflectionInput(
+  payload: MonthlyReflectionValidationPayload
+): ValidationResult {
+  const errors: Record<string, string> = {};
+  const warnings: string[] = [];
+
+  if (!Number.isInteger(payload.year) || payload.year < 2000 || payload.year > 2100) {
+    errors.year = 'A valid year between 2000 and 2100 is required.';
+  }
+  if (!Number.isInteger(payload.month) || payload.month < 1 || payload.month > 12) {
+    errors.month = 'A valid month between 1 and 12 is required.';
+  }
+
+  const clean = (arr: string[] = []) =>
+    arr.map((s) => (typeof s === 'string' ? s.trim() : '')).filter(Boolean);
+
+  const cleanWork = clean(payload.workDone);
+  const cleanAchievements = clean(payload.achievements);
+  const cleanFailures = clean(payload.failures);
+  const cleanLessons = clean(payload.lessons);
+  const cleanHighlights = clean(payload.highlights);
+  const cleanReflection = (payload.overallReflection || '').trim();
+  const cleanNextMonth = (payload.nextMonthReflection || '').trim();
+
+  const totalContentEntries =
+    cleanWork.length +
+    cleanAchievements.length +
+    cleanFailures.length +
+    cleanLessons.length +
+    cleanHighlights.length;
+
+  if (totalContentEntries === 0 && !cleanReflection && !cleanNextMonth) {
+    errors.content = 'Monthly reflection must include at least one reflection entry or synthesis.';
+  }
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors,
+    warnings,
+  };
+}
