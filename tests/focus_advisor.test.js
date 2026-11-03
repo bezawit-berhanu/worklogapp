@@ -68,3 +68,83 @@ test('calculateFocusRecommendations alerts user to work more on taking courses p
   assert.ok(courseRec, 'Expected course recommendation to be present');
   assert.ok(courseRec.message.includes('You need to work more on taking your courses properly'));
 });
+
+test('calculateFocusRecommendations alerts user to write tests when bug patterns emerge', () => {
+  const logs = [
+    {
+      id: '2',
+      date: '2026-10-21',
+      work_done: ['Refactored API router'],
+      achievements: [],
+      failures_and_challenges: ['Unexpected bug caused runtime crash in production', 'Syntax error on load'],
+      lessons_learned: ['Need automated testing before deploy'],
+    },
+  ];
+
+  const recs = calculateFocusRecommendations(logs);
+  const bugRec = recs.find((r) => r.id === 'focus-testing');
+  assert.ok(bugRec, 'Expected testing recommendation to be present');
+  assert.equal(bugRec.severity, 'high');
+  assert.ok(bugRec.message.includes('writing unit tests'));
+});
+
+function evaluateAchievements(dailyLogs) {
+  const judgments = [];
+  const allAchievements = dailyLogs.flatMap((l) => (l.achievements || []).map((a) => ({ text: a, date: l.date })));
+  const allLessons = dailyLogs.flatMap((l) => l.lessons_learned || []);
+
+  if (allAchievements.length === 0) {
+    return [
+      {
+        id: 'eval-first-step',
+        title: 'Ready for Breakthroughs',
+        praise: 'You did well on initiating your personal growth journey. Log your first achievements to receive qualitative evaluations.',
+        impact: 'growing',
+      },
+    ];
+  }
+
+  const sortedAchievements = [...allAchievements].reverse();
+  const topAchievements = sortedAchievements.slice(0, 3);
+
+  if (topAchievements.length > 0) {
+    const mainItem = topAchievements[0].text;
+    judgments.push({
+      id: 'eval-recent-feat',
+      title: 'Key Technical & Practical Accomplishment',
+      praise: `You did well on ${mainItem} — this demonstrates tangible, forward momentum.`,
+      impact: 'outstanding',
+      evidence: topAchievements.map((a) => a.text),
+    });
+  }
+
+  if (allLessons.length > 0) {
+    judgments.push({
+      id: 'eval-resilience',
+      title: 'Growth Mindset & Problem Solving',
+      praise: `You did well on transforming ${allLessons.length} obstacles into concrete lessons learned.`,
+      impact: 'outstanding',
+      evidence: allLessons.slice(0, 3),
+    });
+  }
+
+  return judgments;
+}
+
+test('evaluateAchievements praises user achievements and transformation of lessons', () => {
+  const logs = [
+    {
+      id: '3',
+      date: '2026-10-21',
+      work_done: ['Built TiDB integration'],
+      achievements: ['Configured Drizzle ORM schemas with SSL encryption'],
+      failures_and_challenges: ['Driver timeout'],
+      lessons_learned: ['Increased connection pool timeout'],
+    },
+  ];
+
+  const judgments = evaluateAchievements(logs);
+  assert.ok(judgments.length >= 2);
+  assert.ok(judgments[0].praise.includes('You did well on Configured Drizzle ORM schemas with SSL encryption'));
+  assert.ok(judgments[1].praise.includes('You did well on transforming 1 obstacles into concrete lessons learned'));
+});
