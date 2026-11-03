@@ -37,6 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   weeklyScore,
 }) => {
   const [showDataModal, setShowDataModal] = useState(false);
+  const tidbStatus = getTiDBStatus();
 
   const handleExportBackup = () => {
     try {
