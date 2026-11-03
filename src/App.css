@@ -1080,3 +1080,68 @@
 .dropdown-item:hover {
   background-color: var(--bg-subtle);
 }
+
+/* --------------------------------------------------------------------------
+   Night / Dark Mode Overrides & Visual Contrast Optimization
+   -------------------------------------------------------------------------- */
+[data-theme="night"] .weekly-score-pill {
+  background-color: var(--bg-surface);
+  border-color: var(--border-medium);
+}
+
+[data-theme="night"] .weekly-score-card {
+  background: linear-gradient(135deg, #1C1917 0%, #262320 100%);
+  border-color: var(--border-medium);
+}
+
+[data-theme="night"] .advisor-card {
+  background-color: var(--bg-surface);
+}
+
+[data-theme="night"] .focus-rec-item.severity-high {
+  background-color: #2a1215;
+  border-color: #7f1d1d;
+}
+
+[data-theme="night"] .focus-rec-item.severity-medium {
+  background-color: #2b1f0d;
+  border-color: #78350f;
+}
+
+[data-theme="night"] .judgment-item.impact-outstanding {
+  background: linear-gradient(180deg, #052e16 0%, var(--bg-surface-elevated) 100%);
+}
+
+[data-theme="night"] .judgment-item.impact-solid {
+  background: linear-gradient(180deg, #082f49 0%, var(--bg-surface-elevated) 100%);
+}
+
+[data-theme="night"] .bars-chart-container,
+[data-theme="night"] .bar-detail-panel {
+  background-color: var(--bg-surface);
+  border-color: var(--border-medium);
+}
+
+[data-theme="night"] .detail-stat-box,
+[data-theme="night"] .detail-category-card {
+  background-color: var(--bg-surface-elevated);
+  border-color: var(--border-light);
+}
+
+[data-theme="night"] .bar-column:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="night"] .demo-credentials-banner {
+  background: linear-gradient(135deg, #422006 0%, #291503 100%);
+  border-color: #713f12;
+}
+
+[data-theme="night"] .demo-text {
+  color: #fde047;
+}
+
+[data-theme="night"] .auth-icon-circle {
+  background-color: #422006;
+  color: #fde047;
+}
