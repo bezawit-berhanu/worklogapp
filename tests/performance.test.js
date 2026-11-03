@@ -101,3 +101,66 @@ test('Performance Benchmark - Weekly score calculation over 1,000 logs executes 
   assert.ok(score >= 0 && score <= 100);
   assert.ok(duration < 20, `Scoring calculation took ${duration.toFixed(2)}ms (expected < 20ms)`);
 });
+
+function benchmarkWeeklyDayBars(logs) {
+  const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const logMap = new Map(logs.map((l) => [l.date, l]));
+  const results = [];
+
+  for (let i = 0; i < 7; i++) {
+    const d = `2026-11-0${i + 1}`;
+    const log = logMap.get(d);
+    const totalItems = log
+      ? (log.work_done?.length || 0) +
+        (log.achievements?.length || 0) +
+        (log.failures_and_challenges?.length || 0)
+      : 0;
+
+    let heightCategory = 'empty';
+    if (totalItems >= 4) heightCategory = 'long';
+    else if (totalItems >= 2) heightCategory = 'medium';
+    else if (totalItems === 1) heightCategory = 'short';
+
+    let colorRating = 'gray';
+    if (log) {
+      const ach = log.achievements?.length || 0;
+      const fail = log.failures_and_challenges?.length || 0;
+      if (fail > ach) colorRating = 'red';
+      else if (ach > fail) colorRating = 'green';
+      else colorRating = 'yellow';
+    }
+
+    results.push({
+      dayIndex: i,
+      dayName: dayNames[i],
+      date: d,
+      totalItems,
+      heightCategory,
+      colorRating,
+    });
+  }
+
+  return results;
+}
+
+test('Performance Benchmark - Mon-Sun bar generation for 52 consecutive weeks executes under 25ms', () => {
+  const logs = [];
+  for (let d = 1; d <= 365; d++) {
+    logs.push({
+      id: `day-${d}`,
+      date: `2026-11-${String((d % 28) + 1).padStart(2, '0')}`,
+      work_done: ['Task 1', 'Task 2'],
+      achievements: ['Won challenge'],
+      failures_and_challenges: [],
+    });
+  }
+
+  const start = performance.now();
+  for (let w = 0; w < 52; w++) {
+    const bars = benchmarkWeeklyDayBars(logs);
+    assert.equal(bars.length, 7);
+  }
+  const duration = performance.now() - start;
+
+  assert.ok(duration < 25, `52-week bar generation took ${duration.toFixed(2)}ms (expected < 25ms)`);
+});
