@@ -182,6 +182,20 @@ For testing and quick evaluation, use the pre-configured credentials:
 | `/api/auth/me` | `GET` | `401 Unauthorized` | Invalid or expired token |
 | `/api/auth/logout` | `POST` | `200 OK` | Session invalidated and credentials flushed from storage |
 
+---
+
+## 🌓 Day & Night Theme System
+
+The application features a built-in Day and Night theme system supporting both light mode and deep charcoal dark mode.
+
+### Features
+- **Design Tokens:** Pure CSS custom properties (`--bg-primary`, `--bg-surface`, `--text-primary`, `--border-light`, etc.) mapped via `[data-theme="night"]`.
+- **Zero Flash:** Persisted in `localStorage` under `worklog_theme_preference_v1` and initialized before paint.
+- **System Preference Detection:** Automatically falls back to user OS settings (`prefers-color-scheme: dark`) when no manual choice is saved.
+- **Seamless Toggle:** One-click toggle button located in the top navigation bar with rotating Sun and Moon icons.
+- **Night Mode Styling:** Dedicated contrast ratios and dark themes for the Growth Score widget, Monday–Sunday weekly bar charts, smart advisor cards, and modal dialogs.
+
+
 
 
 ---
