@@ -8,11 +8,14 @@ import * as schema from './schema';
  * Enables SSL encryption required by TiDB Cloud Serverless.
  */
 export function createTiDBConnection() {
-  const host = process.env.TIDB_HOST || 'gateway01.us-east-1.prod.aws.tidbcloud.com';
-  const port = Number(process.env.TIDB_PORT) || 4000;
-  const user = process.env.TIDB_USER || '';
-  const password = process.env.TIDB_PASSWORD || '';
-  const database = process.env.TIDB_DATABASE || 'worklog';
+  const env = typeof process !== 'undefined' && process.env ? process.env : {};
+  const metaEnv = typeof import.meta !== 'undefined' && (import.meta as unknown as { env?: Record<string, string> }).env ? (import.meta as unknown as { env: Record<string, string> }).env : {};
+
+  const host = env.TIDB_HOST || metaEnv.VITE_TIDB_HOST || 'gateway01.us-east-1.prod.aws.tidbcloud.com';
+  const port = Number(env.TIDB_PORT || metaEnv.VITE_TIDB_PORT) || 4000;
+  const user = env.TIDB_USER || metaEnv.VITE_TIDB_USER || '';
+  const password = env.TIDB_PASSWORD || metaEnv.VITE_TIDB_PASSWORD || '';
+  const database = env.TIDB_DATABASE || metaEnv.VITE_TIDB_DATABASE || 'worklog';
 
   // SSL is required for TiDB Cloud Serverless clusters
   const connection = mysql.createPool({
