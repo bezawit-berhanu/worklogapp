@@ -89,9 +89,13 @@ export function generateWeeklyOverview(
   if (daysLoggedCount === 0) {
     summaryNarrative = `No daily logs were recorded for the week of ${weekStart} to ${weekEnd}. You can still write your weekly reflection manually.`;
   } else {
+    const positiveScore = achievements.length > 0
+      ? Math.round((achievements.length / (achievements.length + failuresAndChallenges.length * 0.7)) * 100)
+      : (failuresAndChallenges.length === 0 ? 100 : 40);
+
     summaryNarrative = `Week of ${weekStart} to ${weekEnd}: Recorded ${daysLoggedCount} ${
       daysLoggedCount === 1 ? 'day' : 'days'
-    } of daily work. Accomplished ${achievements.length} measurable ${
+    } of daily work (${Math.min(100, Math.round((daysLoggedCount / 5) * 100))}% weekly consistency). Accomplished ${achievements.length} measurable ${
       achievements.length === 1 ? 'achievement' : 'achievements'
     }, faced ${failuresAndChallenges.length} ${
       failuresAndChallenges.length === 1 ? 'challenge' : 'challenges'
@@ -99,7 +103,7 @@ export function generateWeeklyOverview(
       lessonsLearned.length === 1 ? 'lesson' : 'lessons'
     }, and recorded ${highlights.length} memorable ${
       highlights.length === 1 ? 'highlight' : 'highlights'
-    }.`;
+    }. Weekly achievement ratio: ${positiveScore}%.`;
   }
 
   return {
