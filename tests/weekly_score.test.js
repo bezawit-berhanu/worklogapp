@@ -103,3 +103,48 @@ test('calculateWeeklyScore computes improved delta when current week outperforms
   assert.ok(result.diff > 0, `Expected diff > 0, got ${result.diff}`);
   assert.ok(result.score > result.previousScore);
 });
+
+test('calculateWeeklyScore computes decreased delta when current week output drops compared to prior week', () => {
+  const dailyLogs = [
+    // Prior week (Oct 12 - Oct 18): High output
+    {
+      id: 'prior-1',
+      date: '2026-10-12',
+      work_done: ['Built module', 'Completed lab'],
+      achievements: ['Passed test', 'Earned certification'],
+      failures_and_challenges: [],
+      lessons_learned: [],
+      highlights: [],
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    },
+    {
+      id: 'prior-2',
+      date: '2026-10-13',
+      work_done: ['Implemented authentication'],
+      achievements: ['OAuth working'],
+      failures_and_challenges: [],
+      lessons_learned: [],
+      highlights: [],
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    },
+    // Current week (Oct 19 - Oct 25): Drop in activity
+    {
+      id: 'curr-1',
+      date: '2026-10-20',
+      work_done: ['Quick meeting notes'],
+      achievements: [],
+      failures_and_challenges: ['Felt tired, didn\'t code'],
+      lessons_learned: [],
+      highlights: [],
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    },
+  ];
+
+  const result = calculateWeeklyScore(dailyLogs, new Date('2026-10-21'));
+  assert.equal(result.trend, 'decreased');
+  assert.ok(result.diff > 0, `Expected diff > 0, got ${result.diff}`);
+  assert.ok(result.score < result.previousScore);
+});
