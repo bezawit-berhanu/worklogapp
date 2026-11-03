@@ -115,3 +115,24 @@ Displayed prominently on the **top right corner** (in the navigation bar and on 
   - **`+X% improved`** with green arrow indicator when performance outpaces last week.
   - **`-X% decreased`** with amber/red downward indicator when volume or consistency drops.
   - **`Baseline week`** for inaugural logging periods.
+
+
+---
+
+## 📊 Weekly Performance Report (Mon–Sun Colored Bar Graph)
+
+The weekly performance visualizer tracks daily output volume and outcome health across all 7 days (Monday through Sunday):
+
+### Bar Length (Height Hierarchy)
+- **Long Bar:** High output volume (4+ tasks and reflections logged).
+- **Medium Bar:** Steady output volume (2–3 items logged).
+- **Short Bar:** Focused single-item day (1 item logged).
+- **Empty Slot:** Rest day or no activity recorded.
+
+### Bar Color (Performance Rating)
+- **Green (`#22c55e`):** Performed exceptionally well — logged high tasks with achievements outpacing challenges.
+- **Yellow (`#facc15`):** Performed averagely — steady output with balanced progress and routine activities.
+- **Red (`#ef4444`):** Logged tasks but encountered dominant blockers/failures.
+- **Gray:** No log recorded for that date.
+
+Clicking any bar opens the **Interactive Day Inspector** displaying the exact breakdown of activities, achievements, challenges, and lessons learned.
