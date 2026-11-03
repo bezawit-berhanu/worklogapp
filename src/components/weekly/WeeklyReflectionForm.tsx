@@ -99,7 +99,7 @@ export const WeeklyReflectionForm: React.FC<WeeklyReflectionFormProps> = ({
             {initialReflection ? 'Edit Weekly Reflection' : 'New Weekly Reflection'}
           </h2>
           <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-            Synthesize progress across the entire week, celebrate major milestones, and evaluate lessons learned.
+            Synthesize weekly progress, celebrate milestones, and capture key lessons.
           </p>
         </div>
 
