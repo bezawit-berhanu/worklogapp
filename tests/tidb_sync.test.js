@@ -78,3 +78,45 @@ test('formatWeeklyReflectionForTiDB converts frontend WeeklyReflection to TiDB t
   assert.equal(formatted.weekEndDate, '2026-10-25');
   assert.equal(formatted.generatedSummary, 'Weekly recap text');
 });
+
+function formatMonthlyReflectionForTiDB(reflection) {
+  return {
+    id: reflection.id,
+    month: reflection.month,
+    year: reflection.year,
+    workDone: reflection.work_done,
+    achievements: reflection.achievements,
+    failuresAndChallenges: reflection.failures_and_challenges,
+    lessonsLearned: reflection.lessons_learned,
+    highlights: reflection.highlights,
+    overallReflection: reflection.overall_reflection || null,
+    nextMonthReflection: reflection.next_month_reflection || null,
+    generatedSummary: reflection.generated_summary || null,
+    createdAt: new Date(reflection.created_at),
+    updatedAt: new Date(reflection.updated_at),
+  };
+}
+
+test('formatMonthlyReflectionForTiDB converts frontend MonthlyReflection to TiDB table record', () => {
+  const localMonthly = {
+    id: 'month-10-2026',
+    year: 2026,
+    month: 10,
+    work_done: ['Shipped entire growth tracking suite'],
+    achievements: ['All requirements verified and tested'],
+    failures_and_challenges: ['Managing multiple subagent restarts'],
+    lessons_learned: ['Incremental atomic commits maintain reliable state'],
+    highlights: ['Achieved 80 commits directly to main'],
+    overall_reflection: 'A monumental month of engineering progress',
+    next_month_reflection: 'Focus on deeper algorithm studies',
+    generated_summary: 'Monthly overview summary text',
+    created_at: '2026-10-31T20:00:00.000Z',
+    updated_at: '2026-10-31T20:00:00.000Z',
+  };
+
+  const formatted = formatMonthlyReflectionForTiDB(localMonthly);
+  assert.equal(formatted.id, 'month-10-2026');
+  assert.equal(formatted.month, 10);
+  assert.equal(formatted.year, 2026);
+  assert.equal(formatted.nextMonthReflection, 'Focus on deeper algorithm studies');
+});
