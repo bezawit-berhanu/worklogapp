@@ -93,6 +93,15 @@ export const WeeklyPerformanceBarGraph: React.FC<WeeklyPerformanceBarGraphProps>
                   key={bar.date}
                   className={`bar-column ${isSelected ? 'selected' : ''}`}
                   onClick={() => setSelectedDay(bar)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedDay(bar);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`${bar.dayName} ${bar.date}: ${bar.evaluationLabel}`}
                 >
                   <div className="bar-track">
                     <div
