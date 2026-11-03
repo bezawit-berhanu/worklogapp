@@ -62,7 +62,7 @@ export const MonthlyReflectionForm: React.FC<MonthlyReflectionFormProps> = ({
     }
 
     setSummaryInfo(
-      `Aggregated ${overview.daysLoggedCount} daily log sessions. ${overview.comparisonText} You can freely customize all reflections below.`
+      `Aggregated ${overview.daysLoggedCount} daily logs. ${overview.comparisonText} All fields can be edited before saving.`
     );
   };
 
