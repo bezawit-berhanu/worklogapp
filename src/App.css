@@ -1,1 +1,119 @@
-/* App-level specific overrides if needed (Base design system in index.css) */
+/* ==========================================================================
+   WorkLog Growth Tracker - Advanced Features Styling
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Weekly Score Badge & Top Right Corner Widget
+   -------------------------------------------------------------------------- */
+.weekly-score-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  cursor: default;
+  transition: all 0.2s ease;
+}
+
+.weekly-score-pill:hover {
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-md);
+}
+
+.weekly-score-pill .score-percentage-val {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+.score-delta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-full);
+}
+
+.score-trend-improved {
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.score-trend-decreased {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.score-trend-neutral {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: 1px solid #e5e7eb;
+}
+
+/* Standalone Weekly Score Card (for Dashboard Header) */
+.weekly-score-card {
+  background: linear-gradient(135deg, #FAF8F5 0%, #FFFFFF 100%);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 200px;
+}
+
+.weekly-score-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weekly-score-header .score-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+}
+
+.weekly-score-header .score-icon {
+  color: #c28841;
+}
+
+.weekly-score-body {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.weekly-score-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.weekly-score-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.weekly-score-footer {
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+}
