@@ -17,3 +17,17 @@ test('generateWeeklyNarrative produces accurate consistency rate and positive ac
   assert.ok(narrative.includes('80% weekly consistency'));
   assert.ok(narrative.includes('Weekly achievement ratio: 78%'));
 });
+
+function generateMonthlyNarrative(month, year, daysLoggedCount, achievementsCount, failuresCount, lessonsCount, highlightsCount) {
+  const conversionRate = failuresCount > 0
+    ? Math.min(100, Math.round((lessonsCount / failuresCount) * 100))
+    : 100;
+
+  return `Month ${month}/${year}: You logged ${daysLoggedCount} daily sessions, accumulating ${achievementsCount} major accomplishments, encountering ${failuresCount} challenges, extracting ${lessonsCount} lessons (${conversionRate}% obstacle-to-learning resilience), and celebrating ${highlightsCount} breakthroughs.`;
+}
+
+test('generateMonthlyNarrative calculates obstacle-to-learning resilience percentage', () => {
+  const narrative = generateMonthlyNarrative(10, 2026, 18, 25, 10, 8, 12);
+  assert.ok(narrative.includes('80% obstacle-to-learning resilience'));
+  assert.ok(narrative.includes('25 major accomplishments'));
+});
