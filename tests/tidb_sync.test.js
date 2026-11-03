@@ -38,3 +38,43 @@ test('formatDailyLogForTiDB converts frontend DailyLog into TiDB ORM table recor
   assert.ok(formatted.createdAt instanceof Date);
   assert.equal(formatted.overallReflection, 'Great day of backend architecture');
 });
+
+function formatWeeklyReflectionForTiDB(reflection) {
+  return {
+    id: reflection.id,
+    weekStartDate: reflection.week_start_date,
+    weekEndDate: reflection.week_end_date,
+    workDone: reflection.work_done,
+    achievements: reflection.achievements,
+    failuresAndChallenges: reflection.failures_and_challenges,
+    lessonsLearned: reflection.lessons_learned,
+    highlights: reflection.highlights,
+    overallReflection: reflection.overall_reflection || null,
+    generatedSummary: reflection.generated_summary || null,
+    createdAt: new Date(reflection.created_at),
+    updatedAt: new Date(reflection.updated_at),
+  };
+}
+
+test('formatWeeklyReflectionForTiDB converts frontend WeeklyReflection to TiDB table record', () => {
+  const localWeekly = {
+    id: 'week-1',
+    week_start_date: '2026-10-19',
+    week_end_date: '2026-10-25',
+    work_done: ['Shipped ORM', 'Integrated score widget'],
+    achievements: ['80 commits reached', 'TiDB schema deployed'],
+    failures_and_challenges: ['Rebase sync needed'],
+    lessons_learned: ['Regular fetching prevents rejected pushes'],
+    highlights: ['Productive development cycle'],
+    overall_reflection: 'Excellent progress',
+    generated_summary: 'Weekly recap text',
+    created_at: '2026-10-25T18:00:00.000Z',
+    updated_at: '2026-10-25T18:00:00.000Z',
+  };
+
+  const formatted = formatWeeklyReflectionForTiDB(localWeekly);
+  assert.equal(formatted.id, 'week-1');
+  assert.equal(formatted.weekStartDate, '2026-10-19');
+  assert.equal(formatted.weekEndDate, '2026-10-25');
+  assert.equal(formatted.generatedSummary, 'Weekly recap text');
+});
