@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { WeeklyReflection, DailyLog } from '../../types';
 import { getWeekRange, generateWeeklyOverview } from '../../services/summarizer';
+import { validateWeeklyReflectionInput } from '../../utils/formValidation';
 import { BulletListEditor } from '../common/BulletListEditor';
 import { CategoryBadge } from '../common/CategoryBadge';
 import {
@@ -8,6 +9,7 @@ import {
   Save,
   X,
   Info,
+  AlertCircle,
 } from 'lucide-react';
 
 interface WeeklyReflectionFormProps {
@@ -40,6 +42,7 @@ export const WeeklyReflectionForm: React.FC<WeeklyReflectionFormProps> = ({
   const [generatedSummary, setGeneratedSummary] = useState(initialReflection?.generated_summary || '');
 
   const [summaryInfo, setSummaryInfo] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
 
   // Auto-generate overview from daily logs of selected week
   const handleGenerateOverview = () => {
@@ -73,6 +76,24 @@ export const WeeklyReflectionForm: React.FC<WeeklyReflectionFormProps> = ({
   const clean = (arr: string[]) => arr.map((x) => x.trim()).filter(Boolean);
 
   const handleSave = () => {
+    const validation = validateWeeklyReflectionInput({
+      startDate,
+      endDate,
+      workDone,
+      achievements,
+      failures,
+      lessons,
+      highlights,
+      overallReflection,
+    });
+
+    if (!validation.isValid) {
+      setValidationErrors(validation.errors);
+      return;
+    }
+
+    setValidationErrors({});
+
     const reflection: WeeklyReflection = {
       id,
       week_start_date: startDate,
@@ -153,6 +174,31 @@ export const WeeklyReflectionForm: React.FC<WeeklyReflectionFormProps> = ({
             <span>Auto-Generate from Week's Daily Logs</span>
           </button>
         </div>
+
+        {/* Validation Errors Alert Banner */}
+        {Object.keys(validationErrors).length > 0 && (
+          <div
+            style={{
+              padding: '0.85rem 1rem',
+              borderRadius: 'var(--radius-md)',
+              backgroundColor: 'var(--danger-light, #FEE2E2)',
+              border: '1px solid var(--danger, #EF4444)',
+              marginBottom: '1.25rem',
+              fontSize: '0.86rem',
+              color: '#991B1B',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, marginBottom: '0.25rem' }}>
+              <AlertCircle size={17} />
+              <span>Please resolve the following before saving:</span>
+            </div>
+            <ul style={{ paddingLeft: '1.5rem', margin: 0 }}>
+              {Object.values(validationErrors).map((err, i) => (
+                <li key={i}>{err}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {summaryInfo && (
           <div
