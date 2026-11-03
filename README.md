@@ -156,6 +156,33 @@ Extracts high points and delivers personalized, objective recognition:
 - E.g., *"You did well on shipping the TiDB ORM integration and maintaining structured data integrity."*
 - Highlights problem-solving perseverance, learning conversions, and multi-day momentum.
 
+---
+
+## 🔐 Authentication System & API Specification
+
+The application features full-stack authentication support with mock and persistent backend endpoints, rigorous input validation, and standard HTTP REST semantics.
+
+### Demo Credentials
+For testing and quick evaluation, use the pre-configured credentials:
+- **Email:** `demo@worklog.dev`
+- **Username:** `demouser`
+- **Password:** `Password123!`
+
+### REST API Endpoints & HTTP Status Codes
+
+| Endpoint | Method | Status Code | Description |
+|---|---|---|---|
+| `/api/auth/login` | `POST` | `200 OK` | Valid credentials submitted; returns user profile and auth token |
+| `/api/auth/login` | `POST` | `400 Bad Request` | Missing required fields (email or password empty) |
+| `/api/auth/login` | `POST` | `401 Unauthorized` | Invalid email or incorrect password provided |
+| `/api/auth/signup` | `POST` | `201 Created` | Successfully registered new user account |
+| `/api/auth/signup` | `POST` | `400 Bad Request` | Validation failure (weak password, invalid email format, short username) |
+| `/api/auth/signup` | `POST` | `409 Conflict` | Account already registered with provided email |
+| `/api/auth/me` | `GET` | `200 OK` | Returns current active user session profile |
+| `/api/auth/me` | `GET` | `401 Unauthorized` | Invalid or expired token |
+| `/api/auth/logout` | `POST` | `200 OK` | Session invalidated and credentials flushed from storage |
+
+
 
 ---
 
