@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import type { ActivePage, AppDataBackup } from '../../types';
+import type { ActivePage, AppDataBackup, WeeklyScore } from '../../types';
+import { WeeklyScoreBadge } from './WeeklyScoreBadge';
 import {
   LayoutDashboard,
   Calendar,
@@ -23,6 +24,7 @@ interface NavbarProps {
   onNewDailyLog: () => void;
   onDataChanged: () => void;
   showToast: (type: 'success' | 'error' | 'info', message: string) => void;
+  weeklyScore?: WeeklyScore;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -31,6 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNewDailyLog,
   onDataChanged,
   showToast,
+  weeklyScore,
 }) => {
   const [showDataModal, setShowDataModal] = useState(false);
 
@@ -159,6 +162,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           <div className="nav-actions">
+            {weeklyScore && <WeeklyScoreBadge scoreData={weeklyScore} compact />}
             <button
               type="button"
               className="btn btn-ghost btn-sm"
