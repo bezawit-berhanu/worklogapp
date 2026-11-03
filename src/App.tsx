@@ -1,13 +1,16 @@
 import { useState, useCallback } from 'react';
 import type { ActivePage, DailyLog, WeeklyReflection, MonthlyReflection } from './types';
 import { storage } from './services/storage';
-import { calculateOverallStats } from './services/analytics';
+import { calculateOverallStats, calculateWeeklyScore } from './services/analytics';
 import { formatDateString } from './services/summarizer';
 import { Navbar } from './components/common/Navbar';
+import { WeeklyScoreBadge } from './components/common/WeeklyScoreBadge';
 import { Toast, type ToastMessage } from './components/common/Toast';
 
 // Dashboard Components
 import { MetricCards } from './components/dashboard/MetricCards';
+import { WeeklyPerformanceBarGraph } from './components/dashboard/WeeklyPerformanceBarGraph';
+import { GrowthFocusAdvisor } from './components/dashboard/GrowthFocusAdvisor';
 import { HeatmapCalendar } from './components/dashboard/HeatmapCalendar';
 import { TrendsChart } from './components/dashboard/TrendsChart';
 import { MonthlyBarChart } from './components/dashboard/MonthlyBarChart';
@@ -77,6 +80,7 @@ export function App() {
 
   // Overall statistics derived strictly from real saved data
   const overallStats = calculateOverallStats(dailyLogs, weeklyReflections, monthlyReflections);
+  const weeklyScore = calculateWeeklyScore(dailyLogs);
 
   // Navigation handlers
   const handleNavigate = (page: ActivePage) => {
@@ -199,6 +203,7 @@ export function App() {
         onNewDailyLog={() => handleStartNewDailyLog()}
         onDataChanged={reloadData}
         showToast={showToast}
+        weeklyScore={weeklyScore}
       />
 
       <main className="main-content">
@@ -214,18 +219,33 @@ export function App() {
                   </p>
                 </div>
 
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => handleStartNewDailyLog()}
-                >
-                  <span>Log Today's Work</span>
-                </button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                  <WeeklyScoreBadge scoreData={weeklyScore} />
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => handleStartNewDailyLog()}
+                  >
+                    <span>Log Today's Work</span>
+                  </button>
+                </div>
               </div>
             </div>
 
             {/* Overall Statistics Summary Cards */}
             <MetricCards stats={overallStats} />
+
+            {/* Weekly Performance Mon-Sun Colored Bar Graph */}
+            <WeeklyPerformanceBarGraph
+              dailyLogs={dailyLogs}
+              onSelectDate={(date) => handleStartNewDailyLog(date)}
+            />
+
+            {/* What to Work on Highly & Achievement Evaluation */}
+            <GrowthFocusAdvisor
+              dailyLogs={dailyLogs}
+              onLogWorkClick={() => handleStartNewDailyLog()}
+            />
 
             {/* Daily Logging Consistency Heatmap */}
             <HeatmapCalendar
