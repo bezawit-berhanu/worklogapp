@@ -183,7 +183,11 @@ export function generateMonthlyOverview(
     comparisonText = 'No previous month data available for direct comparison yet.';
   }
 
-  const summaryNarrative = `${getMonthName(month)} ${year} Growth Summary: You logged ${daysLoggedCount} daily sessions, accumulating ${achievements.length} major accomplishments, encountering ${failuresAndChallenges.length} challenges, extracting ${lessonsLearned.length} lessons, and celebrating ${highlights.length} memorable breakthroughs. ${comparisonText}`;
+  const conversionRate = failuresAndChallenges.length > 0
+    ? Math.min(100, Math.round((lessonsLearned.length / failuresAndChallenges.length) * 100))
+    : 100;
+
+  const summaryNarrative = `${getMonthName(month)} ${year} Growth Summary: You logged ${daysLoggedCount} daily sessions, accumulating ${achievements.length} major accomplishments, encountering ${failuresAndChallenges.length} challenges, extracting ${lessonsLearned.length} lessons (${conversionRate}% obstacle-to-learning resilience), and celebrating ${highlights.length} memorable breakthroughs. ${comparisonText}`;
 
   return {
     daysLoggedCount,
