@@ -1145,3 +1145,48 @@
   background-color: #422006;
   color: #fde047;
 }
+
+/* ==========================================================================
+   Theme Toggle Button Styling
+   ========================================================================== */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-medium);
+  background-color: var(--bg-surface);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--bg-surface-elevated);
+  color: var(--text-primary);
+  border-color: var(--primary);
+  transform: rotate(15deg);
+}
+
+.theme-toggle-btn .sun-icon {
+  color: #f59e0b;
+}
+
+.theme-toggle-btn .moon-icon {
+  color: #6366f1;
+}
+
+[data-theme="night"] .theme-toggle-btn {
+  background-color: var(--bg-surface-elevated);
+  border-color: var(--border-light);
+}
+
+[data-theme="night"] .theme-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #fde047;
+  box-shadow: 0 0 10px rgba(253, 224, 71, 0.2);
+}
+
