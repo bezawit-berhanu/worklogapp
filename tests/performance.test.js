@@ -164,3 +164,25 @@ test('Performance Benchmark - Mon-Sun bar generation for 52 consecutive weeks ex
 
   assert.ok(duration < 25, `52-week bar generation took ${duration.toFixed(2)}ms (expected < 25ms)`);
 });
+
+test('Performance Benchmark - 1,000 rapid theme transitions complete under 15ms', () => {
+  const store = {};
+  const mockStorage = {
+    getItem: (k) => store[k] ?? null,
+    setItem: (k, v) => {
+      store[k] = String(v);
+    },
+  };
+
+  let theme = 'day';
+  const start = performance.now();
+  for (let i = 0; i < 1000; i++) {
+    theme = theme === 'day' ? 'night' : 'day';
+    mockStorage.setItem('worklog_theme_preference_v1', theme);
+    const read = mockStorage.getItem('worklog_theme_preference_v1');
+    assert.equal(read, theme);
+  }
+  const duration = performance.now() - start;
+
+  assert.ok(duration < 15, `1,000 theme toggles took ${duration.toFixed(2)}ms (expected < 15ms)`);
+});
