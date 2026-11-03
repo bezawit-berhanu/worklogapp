@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { DailyLog } from '../../types';
 import { storage } from '../../services/storage';
 import { formatDateString } from '../../services/summarizer';
+import { validateDailyLogInput } from '../../utils/formValidation';
 import { BulletListEditor } from '../common/BulletListEditor';
 import { CategoryBadge } from '../common/CategoryBadge';
 import {
@@ -39,6 +40,8 @@ export const DailyLogForm = ({
   const [overallReflection, setOverallReflection] = useState(initialLog?.overall_reflection || '');
 
   const [saveStatus, setSaveStatus] = useState<'saved' | 'draft' | 'unsaved'>('saved');
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+  const [validationWarnings, setValidationWarnings] = useState<string[]>([]);
 
   // Derive duplicate warning directly
   const duplicateWarning =
@@ -52,11 +55,34 @@ export const DailyLogForm = ({
   // Mark unsaved on any change
   const handleFieldChange = () => {
     setSaveStatus('unsaved');
+    if (Object.keys(validationErrors).length > 0) {
+      setValidationErrors({});
+    }
   };
 
   const cleanItems = (items: string[]) => items.map((i) => i.trim()).filter(Boolean);
 
   const handleSave = (isDraft = false) => {
+    const validation = validateDailyLogInput({
+      date,
+      workDone,
+      achievements,
+      failures,
+      lessons,
+      highlights,
+      overallReflection,
+      isDraft,
+    });
+
+    if (!validation.isValid) {
+      setValidationErrors(validation.errors);
+      setValidationWarnings(validation.warnings);
+      return;
+    }
+
+    setValidationErrors({});
+    setValidationWarnings(validation.warnings);
+
     const cleanedWork = cleanItems(workDone);
     const cleanedAchievements = cleanItems(achievements);
     const cleanedFailures = cleanItems(failures);
@@ -127,6 +153,52 @@ export const DailyLogForm = ({
             }}
           />
         </div>
+
+        {/* Validation Errors Alert Banner */}
+        {Object.keys(validationErrors).length > 0 && (
+          <div
+            style={{
+              padding: '0.85rem 1rem',
+              borderRadius: 'var(--radius-md)',
+              backgroundColor: 'var(--danger-light, #FEE2E2)',
+              border: '1px solid var(--danger, #EF4444)',
+              marginBottom: '1.25rem',
+              fontSize: '0.86rem',
+              color: '#991B1B',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, marginBottom: '0.25rem' }}>
+              <AlertCircle size={17} />
+              <span>Please resolve the following before saving:</span>
+            </div>
+            <ul style={{ paddingLeft: '1.5rem', margin: 0 }}>
+              {Object.values(validationErrors).map((err, i) => (
+                <li key={i}>{err}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Growth Warning Banner */}
+        {validationWarnings.length > 0 && (
+          <div
+            style={{
+              padding: '0.75rem 1rem',
+              borderRadius: 'var(--radius-md)',
+              backgroundColor: '#FEF3C7',
+              border: '1px solid #FDE68A',
+              marginBottom: '1.25rem',
+              fontSize: '0.84rem',
+              color: '#92400E',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+            }}
+          >
+            <AlertCircle size={16} style={{ flexShrink: 0 }} />
+            <span>{validationWarnings[0]}</span>
+          </div>
+        )}
 
         {/* Duplicate Entry Warning */}
         {duplicateWarning && (
