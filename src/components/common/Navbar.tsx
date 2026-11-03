@@ -17,6 +17,7 @@ import {
   X,
 } from 'lucide-react';
 import { storage } from '../../services/storage';
+import { getTiDBStatus } from '../../services/dbSync';
 
 interface NavbarProps {
   activePage: ActivePage;
