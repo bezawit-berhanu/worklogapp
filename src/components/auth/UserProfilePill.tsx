@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { User as UserIcon, LogOut, LogIn, ChevronDown } from 'lucide-react';
+import { LogOut, LogIn, ChevronDown } from 'lucide-react';
 
 interface UserProfilePillProps {
   onOpenAuthModal: () => void;
