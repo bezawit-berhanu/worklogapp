@@ -138,3 +138,31 @@ test('calculateWeeklyDayBars evaluates high volume with dominant failures as Lon
   assert.equal(wedBar.colorRating, 'red'); // failures dominate achievements
   assert.equal(wedBar.evaluationLabel, 'High Failure Rate');
 });
+
+test('calculateWeeklyDayBars evaluates medium and short volume bars accurately', () => {
+  const logs = [
+    {
+      id: 'log-thu',
+      date: '2026-10-22',
+      work_done: ['Reviewed PR #4'],
+      achievements: ['Merged PR cleanly'],
+      failures_and_challenges: [],
+      lessons_learned: [],
+    },
+    {
+      id: 'log-fri',
+      date: '2026-10-23',
+      work_done: ['Single study task'],
+      achievements: [],
+      failures_and_challenges: [],
+      lessons_learned: [],
+    },
+  ];
+
+  const bars = calculateWeeklyDayBars(logs);
+  const thuBar = bars[3]; // Thursday: 2 items (Medium)
+  const friBar = bars[4]; // Friday: 1 item (Short)
+
+  assert.equal(thuBar.heightLevel, 'medium');
+  assert.equal(friBar.heightLevel, 'short');
+});
