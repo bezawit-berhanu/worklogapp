@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import { storage } from '../../services/storage';
 import { getTiDBStatus } from '../../services/dbSync';
+import { UserProfilePill } from '../auth/UserProfilePill';
+import { AuthModal } from '../auth/AuthModal';
 
 interface NavbarProps {
   activePage: ActivePage;
@@ -37,6 +39,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   weeklyScore,
 }) => {
   const [showDataModal, setShowDataModal] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const tidbStatus = getTiDBStatus();
 
   const handleExportBackup = () => {
@@ -165,6 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <div className="nav-actions">
             {weeklyScore && <WeeklyScoreBadge scoreData={weeklyScore} compact />}
+            <UserProfilePill onOpenAuthModal={() => setShowAuthModal(true)} />
             <button
               type="button"
               className="btn btn-ghost btn-sm"
@@ -299,6 +303,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
       )}
+
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onSuccess={() => showToast('success', 'Authentication successful.')}
+      />
     </>
   );
 };
