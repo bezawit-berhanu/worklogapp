@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "test": "node --test tests/analytics.test.js tests/*.test.js",
+    "test:perf": "node --test tests/performance.test.js",
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",
     "db:check": "node --import tsx/esm scripts/tidb_test_connection.ts",
