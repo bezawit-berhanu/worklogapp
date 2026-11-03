@@ -74,3 +74,23 @@ test('calculateWeeklyDayBars returns exactly 7 days from Mon to Sun', () => {
   assert.equal(bars[0].colorRating, 'gray');
   assert.equal(bars[0].heightLevel, 'empty');
 });
+
+test('calculateWeeklyDayBars evaluates high output with high achievements as Long Green bar', () => {
+  const logs = [
+    {
+      id: 'log-mon',
+      date: '2026-10-19',
+      work_done: ['Finished feature A', 'Finished feature B'],
+      achievements: ['Shipped release 1.0', 'Passed all integration tests'],
+      failures_and_challenges: [],
+      lessons_learned: [],
+    },
+  ];
+
+  const bars = calculateWeeklyDayBars(logs);
+  const monBar = bars[0];
+  assert.equal(monBar.dayName, 'Mon');
+  assert.equal(monBar.heightLevel, 'long'); // 2 work + 2 achievements = 4 volume (long)
+  assert.equal(monBar.colorRating, 'green'); // high achievements outnumber failures
+  assert.equal(monBar.evaluationLabel, 'Performed Well');
+});
