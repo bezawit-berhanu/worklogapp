@@ -48,29 +48,26 @@ export const MetricCards: React.FC<MetricCardsProps> = ({ stats }) => {
         <div className="stat-value" style={{ color: 'var(--cat-achieve-color)' }}>
           {stats.totalAchievements}
         </div>
-        <div className="stat-footer">Milestones & wins recorded</div>
       </div>
 
       <div className="stat-card" style={{ borderLeft: '3px solid var(--cat-failure-color)' }}>
         <div className="stat-header">
-          <span>Challenges Faced</span>
+          <span>Challenges</span>
           <AlertTriangle size={18} color="var(--cat-failure-color)" />
         </div>
         <div className="stat-value" style={{ color: 'var(--cat-failure-color)' }}>
           {stats.totalFailuresAndChallenges}
         </div>
-        <div className="stat-footer">Problems investigated</div>
       </div>
 
       <div className="stat-card" style={{ borderLeft: '3px solid var(--cat-lesson-color)' }}>
         <div className="stat-header">
-          <span>Lessons Learned</span>
+          <span>Lessons</span>
           <Lightbulb size={18} color="var(--cat-lesson-color)" />
         </div>
         <div className="stat-value" style={{ color: 'var(--cat-lesson-color)' }}>
           {stats.totalLessonsLearned}
         </div>
-        <div className="stat-footer">Insights from challenges</div>
       </div>
 
       <div className="stat-card" style={{ borderLeft: '3px solid var(--cat-highlight-color)' }}>
@@ -81,7 +78,6 @@ export const MetricCards: React.FC<MetricCardsProps> = ({ stats }) => {
         <div className="stat-value" style={{ color: 'var(--cat-highlight-color)' }}>
           {stats.totalHighlights}
         </div>
-        <div className="stat-footer">Breakthrough moments</div>
       </div>
 
       <div className="stat-card">
@@ -90,7 +86,6 @@ export const MetricCards: React.FC<MetricCardsProps> = ({ stats }) => {
           <Layers size={18} color="#57534E" />
         </div>
         <div className="stat-value">{stats.totalWeeklyReflections}</div>
-        <div className="stat-footer">Comprehensive weekly retros</div>
       </div>
 
       <div className="stat-card">
@@ -99,7 +94,6 @@ export const MetricCards: React.FC<MetricCardsProps> = ({ stats }) => {
           <CalendarRange size={18} color="#57534E" />
         </div>
         <div className="stat-value">{stats.totalMonthlyReflections}</div>
-        <div className="stat-footer">Long-term growth milestones</div>
       </div>
     </div>
   );
