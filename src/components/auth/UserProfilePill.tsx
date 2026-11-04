@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { LogOut, LogIn, ChevronDown } from 'lucide-react';
 
 interface UserProfilePillProps {
-  onOpenAuthModal: () => void;
+  onOpenAuthModal?: () => void;
 }
 
 export const UserProfilePill: React.FC<UserProfilePillProps> = ({ onOpenAuthModal }) => {
@@ -15,7 +15,7 @@ export const UserProfilePill: React.FC<UserProfilePillProps> = ({ onOpenAuthModa
       <button
         type="button"
         className="btn btn-secondary btn-sm"
-        onClick={onOpenAuthModal}
+        onClick={onOpenAuthModal || logout}
         title="Sign In or Create Account"
       >
         <LogIn size={15} />
