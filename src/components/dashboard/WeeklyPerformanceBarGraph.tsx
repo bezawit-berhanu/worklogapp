@@ -28,10 +28,7 @@ export const WeeklyPerformanceBarGraph: React.FC<WeeklyPerformanceBarGraphProps>
               <BarChart3 size={20} />
             </div>
             <div>
-              <h2 className="card-title">Weekly Performance Report (Mon – Sun)</h2>
-              <p className="card-subtitle">
-                Weekly output volume and success ratio across days • {weekStart} to {weekEnd}
-              </p>
+              <h2 className="card-title">Weekly Performance (Mon – Sun)</h2>
             </div>
           </div>
         </div>
@@ -39,24 +36,18 @@ export const WeeklyPerformanceBarGraph: React.FC<WeeklyPerformanceBarGraphProps>
         {/* Legend */}
         <div className="weekly-bars-legend">
           <div className="legend-section">
-            <span className="legend-group-title">Color Rating:</span>
             <div className="legend-item">
               <span className="legend-swatch swatch-green"></span>
-              <span>Green: Performed Well</span>
+              <span>Well</span>
             </div>
             <div className="legend-item">
               <span className="legend-swatch swatch-yellow"></span>
-              <span>Yellow: Average Performance</span>
+              <span>Average</span>
             </div>
             <div className="legend-item">
               <span className="legend-swatch swatch-red"></span>
-              <span>Red: High Failure Rate</span>
+              <span>High Failure</span>
             </div>
-          </div>
-
-          <div className="legend-section">
-            <span className="legend-group-title">Bar Length:</span>
-            <span className="legend-subtext">Long (4+ tasks) • Medium (2-3) • Short (1)</span>
           </div>
         </div>
       </div>
