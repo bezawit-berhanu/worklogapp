@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { DailyLog, DayBarData } from '../../types';
-import { calculateWeeklyDayBars, getMondaySundayBoundaries } from '../../services/analytics';
+import { calculateWeeklyDayBars } from '../../services/analytics';
 import { BarChart3, Info, ChevronRight, CheckCircle2, AlertTriangle, Lightbulb, BookOpen } from 'lucide-react';
 
 interface WeeklyPerformanceBarGraphProps {
@@ -14,7 +14,6 @@ export const WeeklyPerformanceBarGraph: React.FC<WeeklyPerformanceBarGraphProps>
 }) => {
   const [selectedDay, setSelectedDay] = useState<DayBarData | null>(null);
   const bars = calculateWeeklyDayBars(dailyLogs);
-  const { weekStart, weekEnd } = getMondaySundayBoundaries();
 
   // Active day to display details for
   const activeDay = selectedDay || bars.find((b) => b.isToday) || bars.find((b) => b.hasLog) || bars[0];
