@@ -229,9 +229,6 @@ export function App() {
               <div className="page-header-row">
                 <div>
                   <h1 className="page-title">Personal Growth Dashboard</h1>
-                  <p className="page-subtitle">
-                    A deliberate record of your professional journey: what you worked on, what went wrong, what you learned, and how you are evolving.
-                  </p>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
