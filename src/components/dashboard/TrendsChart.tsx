@@ -52,7 +52,7 @@ export const TrendsChart: React.FC<TrendsChartProps> = ({ dailyLogs }) => {
       <div className="card-header">
         <div>
           <h3 className="card-title">
-            <TrendingUp size={18} color="#57534E" />
+            <TrendingUp size={18} style={{ color: 'var(--text-secondary)' }} />
             <span>Growth Trajectory Over Time</span>
           </h3>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>

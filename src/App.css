@@ -445,12 +445,40 @@
   gap: 0.85rem;
 }
 
+.growth-philosophy-banner {
+  background-color: var(--cat-lesson-bg);
+  border: 1px solid var(--cat-lesson-border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.86rem;
+  color: var(--cat-lesson-color);
+  line-height: 1.5;
+}
+
 .weekly-bars-icon {
   background-color: rgba(140, 88, 54, 0.12);
   color: #8c5836;
 }
 
-[data-theme="night"] .weekly-bars-icon {
+[data-theme="night"] .growth-philosophy-banner {
+  background-color: var(--cat-lesson-bg);
+  border: 1px solid var(--cat-lesson-border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.86rem;
+  color: var(--cat-lesson-color);
+  line-height: 1.5;
+}
+
+.weekly-bars-icon {
   background-color: rgba(56, 189, 248, 0.15);
   color: #38bdf8;
 }

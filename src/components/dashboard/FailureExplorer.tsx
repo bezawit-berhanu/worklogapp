@@ -54,24 +54,10 @@ export const FailureExplorer: React.FC<FailureExplorerProps> = ({ dailyLogs, onO
       </div>
 
       {/* Constructive Philosophy Banner */}
-      <div
-        style={{
-          backgroundColor: '#FFFBEB',
-          border: '1px solid #FEF3C7',
-          borderRadius: 'var(--radius-md)',
-          padding: '0.85rem 1rem',
-          display: 'flex',
-          alignItems: 'flex-start',
-          gap: '0.65rem',
-          marginBottom: '1.25rem',
-          fontSize: '0.84rem',
-          color: '#92400E',
-          lineHeight: '1.5',
-        }}
-      >
+      <div className="growth-philosophy-banner">
         <Info size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
         <div>
-          <strong>Growth Perspective:</strong> A higher failure count reflects ambitious work and rigorous honesty, not inadequacy. Every recorded failure is treated as an empirical data point to extract permanent technical and personal lessons.
+          <strong>Growth Mindset:</strong> Failures and blockers are empirical learning data points for permanent technical progress.
         </div>
       </div>
 
