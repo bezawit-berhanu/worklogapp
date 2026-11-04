@@ -55,7 +55,13 @@ Every entry in the system revolves around four essential pillars:
 - Filter by category presence (Has Achievements, Has Failures, Has Lessons, Has Highlights).
 - Direct one-click navigation to original entries.
 
-### 6. Resilient Local-First Persistence & Backups
+### 6. Dedicated Authentication & Session Gating
+- **Standalone `AuthPage` Component:** Full-page sign-in and sign-up experience isolated in `src/pages/AuthPage.tsx`.
+- **Gated Dashboard Access:** Unauthenticated visitors are routed immediately to the authentication view; once logged in, the full Personal Growth Dashboard renders seamlessly.
+- **Pre-filled Demo Credentials:** Includes one-click demo credentials (`demo@worklog.dev` / `Password123!`) for instant zero-friction testing.
+- **Client & Server Input Validation:** RFC-compliant email checks, password strength requirements, and proper HTTP error codes.
+
+### 7. Resilient Local-First Persistence & Backups
 - Persistent storage surviving browser reloads and tab closures.
 - JSON data export tool to download full backups.
 - JSON data import tool to restore growth records anytime.
@@ -63,10 +69,14 @@ Every entry in the system revolves around four essential pillars:
 
 ---
 
-## 🎨 Design Aesthetics & UI Philosophy
+## 🎨 Design System, Theme Engine & Responsive Layout
 
-- **Warm Neutral Palette:** Cream (`#FAF8F5`), off-white, and deep charcoal (`#1C1917`) with subtle warm brown and amber accents.
-- **Typography:** Modern typography using Google Fonts (`Plus Jakarta Sans` paired with `Newsreader`).
+- **Refined Slate Night Theme:** Modern dark palette (`#0B0F19`, `#111827`, `#1F2937`) with high-contrast text tokens (`#F9FAFB`), translucent category badges, and glowing cyan accents (`#38BDF8`).
+- **Warm Neutral Day Theme:** Cream (`#FAF8F5`), off-white, and deep charcoal (`#1C1917`) with subtle warm brown and amber accents.
+- **De-cluttered Interface:** Stripped redundant micro-texts and subtitles across metric cards, advisor prompts, and logging forms to prioritize essential numeric focus and clean reading.
+- **Full Responsive Adaptation:** Fluid layouts across desktop, tablet, and mobile, featuring scrollable weekly performance stages, collapsible navigation, and mobile-friendly touch targets.
+- **Typography:** Modern typography using Google Fonts (`Plus Jakarta Sans` paired with `Newsreader`) with relaxed 1.65 line-height.
+
 - **Encouraging & Constructive Tone:** Failures are celebrated as essential empirical data points for deliberate mastery rather than personal inadequacy.
 
 ---
