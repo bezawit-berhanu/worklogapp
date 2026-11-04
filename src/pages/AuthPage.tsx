@@ -202,6 +202,20 @@ export const AuthPage: React.FC = () => {
                 <LogIn size={16} />
                 <span>{submitting ? 'Signing in...' : 'Sign In'}</span>
               </button>
+
+              <div className="auth-switch-prompt">
+                <span>New to WorkLog?</span>{' '}
+                <button
+                  type="button"
+                  className="auth-link-btn"
+                  onClick={() => {
+                    setMode('signup');
+                    setError(null);
+                  }}
+                >
+                  Create an account
+                </button>
+              </div>
             </form>
           ) : (
             <form onSubmit={handleSignUp} className="auth-form">
@@ -286,6 +300,20 @@ export const AuthPage: React.FC = () => {
                 <UserPlus size={16} />
                 <span>{submitting ? 'Creating account...' : 'Create Account'}</span>
               </button>
+
+              <div className="auth-switch-prompt">
+                <span>Already registered?</span>{' '}
+                <button
+                  type="button"
+                  className="auth-link-btn"
+                  onClick={() => {
+                    setMode('signin');
+                    setError(null);
+                  }}
+                >
+                  Sign in here
+                </button>
+              </div>
             </form>
           )}
         </div>
