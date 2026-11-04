@@ -21,9 +21,6 @@ export const MonthlyList: React.FC<MonthlyListProps> = ({
         <div className="page-header-row">
           <div>
             <h1 className="page-title">Monthly Reflections</h1>
-            <p className="page-subtitle">
-              Long-term reviews of your professional and academic growth, recurring challenges, and evolution.
-            </p>
           </div>
 
           <button type="button" className="btn btn-primary" onClick={onNewReflection}>

@@ -53,9 +53,6 @@ export const DailyLogList: React.FC<DailyLogListProps> = ({
         <div className="page-header-row">
           <div>
             <h1 className="page-title">Daily Work Logs</h1>
-            <p className="page-subtitle">
-              Your day-to-day record of activities, accomplishments, setbacks, and technical insights.
-            </p>
           </div>
 
           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>

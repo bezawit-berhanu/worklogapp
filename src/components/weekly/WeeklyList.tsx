@@ -20,9 +20,6 @@ export const WeeklyList: React.FC<WeeklyListProps> = ({
         <div className="page-header-row">
           <div>
             <h1 className="page-title">Weekly Reflections</h1>
-            <p className="page-subtitle">
-              Synthesize your weekly growth, review milestones, and extract strategic lessons from daily logs.
-            </p>
           </div>
 
           <button type="button" className="btn btn-primary" onClick={onNewReflection}>
