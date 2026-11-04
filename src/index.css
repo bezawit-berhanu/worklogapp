@@ -620,12 +620,36 @@ body {
   transition: all 0.15s ease;
 }
 
+.form-input::placeholder,
+.form-textarea::placeholder,
+.bullet-editor-input::placeholder {
+  color: var(--text-tertiary);
+  opacity: 0.7;
+}
+
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
   outline: none;
   border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px rgba(140, 122, 107, 0.12);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+}
+
+[data-theme="night"] .form-input,
+[data-theme="night"] .form-select,
+[data-theme="night"] .form-textarea,
+[data-theme="night"] .bullet-editor-input {
+  background-color: var(--bg-surface-elevated);
+  border-color: var(--border-medium);
+  color: var(--text-main);
+}
+
+[data-theme="night"] .form-input:focus,
+[data-theme="night"] .form-select:focus,
+[data-theme="night"] .form-textarea:focus,
+[data-theme="night"] .bullet-editor-input:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
 }
 
 .form-textarea {
