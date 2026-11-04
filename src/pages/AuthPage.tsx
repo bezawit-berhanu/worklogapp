@@ -72,6 +72,24 @@ export const AuthPage: React.FC = () => {
     setError(null);
   };
 
+  const handleInstantDemoLogin = async () => {
+    setError(null);
+    setSubmitting(true);
+    try {
+      const res = await login({
+        emailOrUsername: DEMO_USER.email,
+        password: DEMO_USER.passwordHash,
+      });
+      if (!res.success) {
+        setError(res.error || 'Failed to sign in with demo credentials.');
+      }
+    } catch {
+      setError('An error occurred during instant demo sign in.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className="auth-page-container">
       <header className="auth-page-header">
@@ -184,14 +202,32 @@ export const AuthPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="auth-demo-helper">
-                <button
-                  type="button"
-                  className="btn btn-ghost btn-sm demo-autofill-btn"
-                  onClick={handleUseDemoAccount}
-                >
-                  Reset Demo Credentials (demo@worklog.dev)
-                </button>
+              <div className="demo-credentials-banner" style={{ margin: '1.25rem 0' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', flexWrap: 'wrap' }}>
+                  <div>
+                    <div style={{ fontWeight: 600, fontSize: '0.85rem' }}>Hardcoded Demo Access:</div>
+                    <div className="demo-text" style={{ fontSize: '0.8rem', opacity: 0.9 }}>
+                      <strong>{DEMO_USER.email}</strong> &bull; <code>Password123!</code>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', gap: '0.4rem' }}>
+                    <button
+                      type="button"
+                      className="btn btn-secondary btn-sm"
+                      onClick={handleUseDemoAccount}
+                    >
+                      Fill Form
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-sm"
+                      onClick={handleInstantDemoLogin}
+                      disabled={submitting}
+                    >
+                      1-Click Login
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <button
