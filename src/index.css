@@ -815,14 +815,32 @@ body {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  background-color: #1C1917;
-  color: #FAF8F5;
+  background-color: var(--bg-surface-elevated);
+  color: var(--text-main);
+  border: 1px solid var(--border-medium);
   padding: 0.75rem 1.15rem;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   font-size: 0.88rem;
   font-weight: 500;
   animation: slideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="night"] .empty-state {
+  background-color: var(--bg-surface);
+  border-color: var(--border-medium);
+}
+
+[data-theme="night"] .empty-state-icon {
+  background-color: var(--bg-surface-elevated);
+  color: var(--text-secondary);
+}
+
+[data-theme="night"] .toast {
+  background-color: var(--bg-surface-elevated);
+  color: var(--text-main);
+  border: 1px solid var(--border-medium);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
 }
 
 @keyframes slideUp {
