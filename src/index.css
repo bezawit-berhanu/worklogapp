@@ -139,7 +139,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 50;
-  background-color: rgba(250, 248, 245, 0.94);
+  background-color: var(--navbar-bg);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-light);
   padding: 0.85rem 1.5rem;
@@ -166,8 +166,8 @@ body {
   width: 36px;
   height: 36px;
   border-radius: var(--radius-md);
-  background: #1C1917;
-  color: #FAF8F5;
+  background: var(--text-main);
+  color: var(--text-inverse);
   display: flex;
   align-items: center;
   justify-content: center;
