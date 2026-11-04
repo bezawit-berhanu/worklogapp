@@ -124,8 +124,8 @@
 .growth-advisor-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 1.75rem;
+  margin-bottom: 2.5rem;
 }
 
 .advisor-card {
@@ -420,7 +420,7 @@
    Weekly Performance Bar Graph (Mon-Sun Colored Rating & Length Hierarchy)
    -------------------------------------------------------------------------- */
 .weekly-bars-card {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   overflow: hidden;
 }
 
