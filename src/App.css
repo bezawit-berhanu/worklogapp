@@ -123,9 +123,17 @@
    -------------------------------------------------------------------------- */
 .growth-advisor-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 1.75rem;
   margin-bottom: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .growth-advisor-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
 }
 
 .advisor-card {
