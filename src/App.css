@@ -1190,3 +1190,223 @@
   box-shadow: 0 0 10px rgba(253, 224, 71, 0.2);
 }
 
+/* ==========================================================================
+   Full-Page Dedicated AuthPage Styling
+   ========================================================================== */
+.auth-page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+}
+
+.auth-page-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-light);
+  padding: 0.9rem 1.5rem;
+  backdrop-filter: blur(12px);
+}
+
+.auth-page-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.auth-page-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+}
+
+.auth-card {
+  max-width: 460px;
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.2s ease;
+}
+
+.auth-card-top {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.auth-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.auth-card-sub {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
+  background-color: var(--bg-subtle);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+}
+
+.auth-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.auth-tab.active {
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  box-shadow: var(--shadow-sm);
+}
+
+.auth-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-input-icon {
+  position: absolute;
+  left: 0.85rem;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.form-input.auth-input {
+  padding-left: 2.5rem;
+  width: 100%;
+}
+
+.auth-submit-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.7rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.auth-switch-prompt {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.auth-link-btn {
+  background: none;
+  border: none;
+  color: var(--text-main);
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+}
+
+.auth-page-footer {
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  border-top: 1px solid var(--border-light);
+}
+
+.auth-loading-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-primary);
+}
+
+.auth-spinner {
+  width: 38px;
+  height: 38px;
+  border: 3px solid var(--border-medium);
+  border-top-color: var(--text-main);
+  border-radius: 50%;
+  animation: authSpin 0.75s linear infinite;
+}
+
+@keyframes authSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.auth-alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.auth-alert-error {
+  background-color: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #991B1B;
+}
+
+.auth-alert-success {
+  background-color: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  color: #166534;
+}
+
+[data-theme="night"] .auth-alert-error {
+  background-color: #450A0A;
+  border-color: #7F1D1D;
+  color: #FCA5A5;
+}
+
+[data-theme="night"] .auth-alert-success {
+  background-color: #052E16;
+  border-color: #14532D;
+  color: #86EFAC;
+}
+
+[data-theme="night"] .auth-tabs {
+  background-color: var(--bg-surface-elevated);
+}
+
+[data-theme="night"] .auth-tab.active {
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+}
+
+
