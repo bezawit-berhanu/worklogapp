@@ -22,10 +22,7 @@ export const GrowthFocusAdvisor: React.FC<GrowthFocusAdvisorProps> = ({ dailyLog
               <Target size={20} />
             </div>
             <div>
-              <h2 className="card-title">Priority Focus: What to Work on Highly</h2>
-              <p className="card-subtitle">
-                Targeted recommendations to strengthen your study habits, technical rigor, and daily output
-              </p>
+              <h2 className="card-title">What to Work on Highly</h2>
             </div>
           </div>
         </div>
@@ -75,10 +72,7 @@ export const GrowthFocusAdvisor: React.FC<GrowthFocusAdvisorProps> = ({ dailyLog
               <Award size={20} />
             </div>
             <div>
-              <h2 className="card-title">Achievement Evaluation: What You Did Well On</h2>
-              <p className="card-subtitle">
-                Objective recognition of milestones accomplished, technical breakthroughs, and perseverance
-              </p>
+              <h2 className="card-title">What You Did Well On</h2>
             </div>
           </div>
         </div>
