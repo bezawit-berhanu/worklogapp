@@ -445,6 +445,21 @@
   gap: 0.85rem;
 }
 
+.weekly-bars-icon {
+  background-color: rgba(140, 88, 54, 0.12);
+  color: #8c5836;
+}
+
+[data-theme="night"] .weekly-bars-icon {
+  background-color: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+}
+
+[data-theme="night"] .weekly-bars-legend {
+  background-color: var(--bg-surface);
+  border-color: var(--border-medium);
+}
+
 .weekly-bars-legend {
   display: flex;
   flex-direction: column;

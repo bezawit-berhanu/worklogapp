@@ -24,7 +24,7 @@ export const WeeklyPerformanceBarGraph: React.FC<WeeklyPerformanceBarGraphProps>
       <div className="card-header weekly-bars-header">
         <div>
           <div className="weekly-bars-title-row">
-            <div className="advisor-icon" style={{ background: '#f5efe6', color: '#8c5836' }}>
+            <div className="advisor-icon weekly-bars-icon">
               <BarChart3 size={20} />
             </div>
             <div>
