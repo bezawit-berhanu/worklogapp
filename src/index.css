@@ -973,6 +973,12 @@ p:last-child {
   .page-title {
     font-size: 1.65rem;
   }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -991,5 +997,19 @@ p:last-child {
 
   .nav-actions {
     gap: 0.5rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-card {
+    padding: 1.15rem 1rem;
+  }
+
+  .stat-value {
+    font-size: 1.75rem;
   }
 }
