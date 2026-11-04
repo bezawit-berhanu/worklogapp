@@ -798,6 +798,30 @@ body {
   background-color: #166534;
 }
 
+[data-theme="night"] .heatmap-cell {
+  background-color: var(--bg-surface-elevated);
+}
+
+[data-theme="night"] .heatmap-cell.level-1 {
+  background-color: #064e3b;
+}
+
+[data-theme="night"] .heatmap-cell.level-2 {
+  background-color: #059669;
+}
+
+[data-theme="night"] .heatmap-cell.level-3 {
+  background-color: #10b981;
+}
+
+[data-theme="night"] .heatmap-cell.level-4 {
+  background-color: #34d399;
+}
+
+[data-theme="night"] .heatmap-cell:hover {
+  outline-color: var(--border-focus);
+}
+
 /* Toast Notifications */
 .toast-container {
   position: fixed;

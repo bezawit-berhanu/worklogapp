@@ -34,7 +34,7 @@ export const HeatmapCalendar: React.FC<HeatmapCalendarProps> = ({ dailyLogs, onS
       <div className="card-header">
         <div>
           <h3 className="card-title">
-            <CalendarIcon size={18} color="#57534E" />
+            <CalendarIcon size={18} style={{ color: 'var(--text-secondary)' }} />
             <span>Logging Consistency Heatmap</span>
           </h3>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
