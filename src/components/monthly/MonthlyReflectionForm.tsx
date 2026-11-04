@@ -316,7 +316,6 @@ export const MonthlyReflectionForm: React.FC<MonthlyReflectionFormProps> = ({
         <div className="form-group">
           <label className="form-label" htmlFor="monthly-overall-reflection">
             <span>Overall Growth Reflection</span>
-            <span className="form-hint">How did this month transform your skills, confidence, and career roadmap?</span>
           </label>
           <textarea
             id="monthly-overall-reflection"
@@ -332,7 +331,6 @@ export const MonthlyReflectionForm: React.FC<MonthlyReflectionFormProps> = ({
         <div className="form-group">
           <label className="form-label" htmlFor="next-month-reflection">
             <span>Priorities & Intentions for Next Month</span>
-            <span className="form-hint">Reflective notes on growth direction (not a task checklist)</span>
           </label>
           <textarea
             id="next-month-reflection"

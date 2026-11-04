@@ -304,7 +304,6 @@ export const WeeklyReflectionForm: React.FC<WeeklyReflectionFormProps> = ({
         <div className="form-group">
           <label className="form-label" htmlFor="weekly-overall-reflection">
             <span>Overall Reflection on Weekly Progress</span>
-            <span className="form-hint">How did this week move you forward in your professional growth?</span>
           </label>
           <textarea
             id="weekly-overall-reflection"

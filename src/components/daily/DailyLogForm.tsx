@@ -242,7 +242,6 @@ export const DailyLogForm = ({
               <CategoryBadge category="work_done" />
               <span>What I Worked On</span>
             </span>
-            <span className="form-hint">Tasks, code, study sessions, problems tackled</span>
           </label>
           <BulletListEditor
             items={workDone}
@@ -262,7 +261,6 @@ export const DailyLogForm = ({
               <CategoryBadge category="achievements" />
               <span>Achievements</span>
             </span>
-            <span className="form-hint">Accomplishments, milestones, concepts mastered</span>
           </label>
           <BulletListEditor
             items={achievements}
@@ -282,7 +280,6 @@ export const DailyLogForm = ({
               <CategoryBadge category="failures_and_challenges" />
               <span>Failures & Challenges</span>
             </span>
-            <span className="form-hint">Blockers, bugs, misunderstandings, friction points</span>
           </label>
           <BulletListEditor
             items={failures}
@@ -302,7 +299,6 @@ export const DailyLogForm = ({
               <CategoryBadge category="lessons_learned" />
               <span>Learnings from Failures / Challenges</span>
             </span>
-            <span className="form-hint">What caused the issue and the technical takeaway</span>
           </label>
           <BulletListEditor
             items={lessons}
@@ -322,7 +318,6 @@ export const DailyLogForm = ({
               <CategoryBadge category="highlights" />
               <span>Highlights & Breakthroughs</span>
             </span>
-            <span className="form-hint">Wins, exciting moments, personal discoveries</span>
           </label>
           <BulletListEditor
             items={highlights}
@@ -339,7 +334,6 @@ export const DailyLogForm = ({
         <div className="form-group">
           <label className="form-label" htmlFor="overall-reflection-input">
             <span>Overall Reflection (Optional)</span>
-            <span className="form-hint">Short synthesis of mindset and energy</span>
           </label>
           <textarea
             id="overall-reflection-input"
