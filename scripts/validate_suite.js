@@ -16,8 +16,11 @@ try {
   console.log('\n✓ Production build completed without errors.\n');
 
   console.log('4. Checking Git Commit Count...');
-  const count = execSync('git rev-list --count HEAD').toString().trim();
+  const count = parseInt(execSync('git rev-list --count HEAD').toString().trim(), 10);
   console.log(`✓ Total Git Commits on main: ${count}`);
+  if (count >= 160 && count <= 170) {
+    console.log(`✓ Target commit milestone achieved (${count} commits directly to main).`);
+  }
 
   console.log('\n=== ALL VERIFICATION CHECKS PASSED ===');
 } catch (error) {
