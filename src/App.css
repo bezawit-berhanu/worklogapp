@@ -865,6 +865,48 @@
   padding: 1rem 0;
 }
 
+/* Responsive adjustments for Weekly Performance Bar Graph */
+@media (max-width: 768px) {
+  .bars-chart-container {
+    overflow-x: auto;
+    padding: 1.5rem 1rem 1rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bars-stage {
+    min-width: 520px;
+  }
+
+  .bar-detail-panel {
+    padding: 1.25rem 1rem;
+  }
+
+  .bar-detail-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .weekly-bars-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .bars-stage {
+    min-width: 480px;
+    gap: 0.65rem;
+  }
+
+  .bar-column {
+    padding: 0.5rem 0.2rem;
+  }
+
+  .bar-detail-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* --------------------------------------------------------------------------
    Authentication Modal & User Profile Pill Styling
    -------------------------------------------------------------------------- */
