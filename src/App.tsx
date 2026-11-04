@@ -34,8 +34,11 @@ import { MonthlyReflectionView } from './components/monthly/MonthlyReflectionVie
 
 // Search Component
 import { SearchHistory } from './components/search/SearchHistory';
+import { useAuth } from './context/AuthContext';
+import { AuthPage } from './pages/AuthPage';
 
 export function App() {
+  const { isAuthenticated, isLoading } = useAuth();
   const [activePage, setActivePage] = useState<ActivePage>('dashboard');
 
   // Core Data State
@@ -194,6 +197,18 @@ export function App() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="auth-loading-screen">
+        <div className="auth-spinner"></div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <AuthPage />;
+  }
 
   return (
     <div className="app-container">

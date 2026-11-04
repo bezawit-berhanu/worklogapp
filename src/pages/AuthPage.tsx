@@ -31,7 +31,8 @@ export const AuthPage: React.FC = () => {
     try {
       const res = await login({ emailOrUsername, password });
       if (!res.success) {
-        setError(res.error || 'Invalid credentials. Please verify your email/username and password.');
+        const errorMsg = res.errors ? Object.values(res.errors)[0] : res.message;
+        setError(errorMsg || 'Invalid credentials. Please verify your email/username and password.');
       }
     } catch {
       setError('An unexpected error occurred during sign in.');
@@ -55,7 +56,8 @@ export const AuthPage: React.FC = () => {
       });
 
       if (!res.success) {
-        setError(res.error || 'Failed to register account.');
+        const errorMsg = res.errors ? Object.values(res.errors)[0] : res.message;
+        setError(errorMsg || 'Failed to register account.');
       } else {
         setSuccessMessage('Account created successfully! Loading your dashboard...');
       }
@@ -81,7 +83,8 @@ export const AuthPage: React.FC = () => {
         password: DEMO_USER.passwordHash,
       });
       if (!res.success) {
-        setError(res.error || 'Failed to sign in with demo credentials.');
+        const errorMsg = res.errors ? Object.values(res.errors)[0] : res.message;
+        setError(errorMsg || 'Failed to sign in with demo credentials.');
       }
     } catch {
       setError('An error occurred during instant demo sign in.');
