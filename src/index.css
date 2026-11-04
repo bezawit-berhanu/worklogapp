@@ -452,28 +452,33 @@ body {
 }
 
 .category-section.work_done {
-  background-color: rgba(241, 245, 249, 0.6);
-  border-left: 3px solid var(--cat-work-color);
+  background-color: var(--cat-work-bg);
+  border: 1px solid var(--cat-work-border);
+  border-left: 4px solid var(--cat-work-color);
 }
 
 .category-section.achievements {
-  background-color: rgba(240, 253, 244, 0.7);
-  border-left: 3px solid var(--cat-achieve-color);
+  background-color: var(--cat-achieve-bg);
+  border: 1px solid var(--cat-achieve-border);
+  border-left: 4px solid var(--cat-achieve-color);
 }
 
 .category-section.failures_and_challenges {
-  background-color: rgba(255, 247, 237, 0.7);
-  border-left: 3px solid var(--cat-failure-color);
+  background-color: var(--cat-failure-bg);
+  border: 1px solid var(--cat-failure-border);
+  border-left: 4px solid var(--cat-failure-color);
 }
 
 .category-section.lessons_learned {
-  background-color: rgba(254, 252, 232, 0.8);
-  border-left: 3px solid var(--cat-lesson-color);
+  background-color: var(--cat-lesson-bg);
+  border: 1px solid var(--cat-lesson-border);
+  border-left: 4px solid var(--cat-lesson-color);
 }
 
 .category-section.highlights {
-  background-color: rgba(250, 245, 255, 0.7);
-  border-left: 3px solid var(--cat-highlight-color);
+  background-color: var(--cat-highlight-bg);
+  border: 1px solid var(--cat-highlight-border);
+  border-left: 4px solid var(--cat-highlight-color);
 }
 
 .category-title {
