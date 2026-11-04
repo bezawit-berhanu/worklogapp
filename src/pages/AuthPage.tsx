@@ -354,6 +354,10 @@ export const AuthPage: React.FC = () => {
           )}
         </div>
       </main>
+
+      <footer className="auth-page-footer">
+        <p>&copy; {new Date().getFullYear()} WorkLog &bull; Professional Growth Tracker</p>
+      </footer>
     </div>
   );
 };
